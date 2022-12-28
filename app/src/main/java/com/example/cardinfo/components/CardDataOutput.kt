@@ -9,14 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.cardinfo.R
 import com.example.cardinfo.ui.theme.Silver
 
 
+// General information about the card for the user
+
 @Composable
 fun CardDataOutput(
-    modifier: Modifier = Modifier,
     schemaNetwork: String,
     brand: String,
     cardNumber: String,
@@ -24,6 +26,8 @@ fun CardDataOutput(
     prepaid: String,
     country: String,
     bank: String,
+    latitude: String,
+    longitude: String
 ){
 
     ConstraintLayout(modifier = Modifier) {
@@ -35,6 +39,10 @@ fun CardDataOutput(
             textPrepaid, dataPrepaid,
             textCountry, dataCountry,
             textBank, dataBank,
+        ) = createRefs()
+
+        val (
+            textCoordinates,
         ) = createRefs()
 
 
@@ -106,7 +114,9 @@ fun CardDataOutput(
                 top.linkTo(textLength.bottom)
             }
         )
-        
+
+
+
         Text(
             text = stringResource(id = R.string.type),
             style = typography.subtitle2,
@@ -120,6 +130,8 @@ fun CardDataOutput(
 
                 }
         )
+
+
 
         Text(
             text = type,
@@ -178,13 +190,25 @@ fun CardDataOutput(
         )
 
         Text(
+            text = "(latitude: $latitude, longitude: $longitude)",
+            style = typography.subtitle2,
+            color = Silver,
+            fontSize = 9.sp,
+
+            modifier = Modifier.constrainAs(textCoordinates){
+                start.linkTo(dataCountry.start)
+                top.linkTo(dataCountry.bottom)
+            }
+        )
+
+        Text(
             text = stringResource(id = R.string.bank),
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier
                 .constrainAs(textBank) {
-                    top.linkTo(dataCountry.bottom, margin = 20.dp)
-                    start.linkTo(dataCountry.start)
+                    top.linkTo(textCoordinates.bottom, margin = 20.dp)
+                    start.linkTo(textCoordinates.start)
 
                 }
         )
@@ -198,20 +222,11 @@ fun CardDataOutput(
                 top.linkTo(textBank.bottom)
             }
         )
-
-
-
-
-
-
-
-
-
     }
 }
 
 
-
+// Temporary implementation of user interface
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -221,11 +236,12 @@ fun PricePreview() {
         schemaNetwork = "?",
         brand = "?",
         cardNumber = "?",
-        type = "?",
-        prepaid = "?",
+        type = "Debit / Credit",
+        prepaid = "Yes / No",
         country = "?",
-        bank = "?"
-
+        bank = "?",
+        longitude = "?",
+        latitude = "?"
     )
 
 }
