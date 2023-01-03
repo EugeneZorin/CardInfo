@@ -1,17 +1,17 @@
 package com.example.cardinfo.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.cardinfo.R
+import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.ui.theme.Silver
 
 
@@ -19,15 +19,8 @@ import com.example.cardinfo.ui.theme.Silver
 
 @Composable
 fun CardDataOutput(
-    schemaNetwork: String,
-    brand: String,
-    cardNumber: String,
-    type: String,
-    prepaid: String,
-    country: String,
-    bank: String,
-    latitude: String,
-    longitude: String
+    cardAllData: MutableState<CardModel>
+
 ){
 
     ConstraintLayout(modifier = Modifier) {
@@ -59,7 +52,7 @@ fun CardDataOutput(
         )
         
         Text(
-            text = schemaNetwork,
+            text = cardAllData.value.scheme,
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataSchemeNetwork){
@@ -78,7 +71,7 @@ fun CardDataOutput(
         )
 
         Text(
-            text = brand,
+            text = cardAllData.value.brand,
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataBrand){
@@ -107,7 +100,7 @@ fun CardDataOutput(
         )
 
         Text(
-            text = cardNumber,
+            text = cardAllData.value.length.toString(),
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataCardNumber){
@@ -134,7 +127,7 @@ fun CardDataOutput(
 
 
         Text(
-            text = type,
+            text = cardAllData.value.type,
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataType){
@@ -157,7 +150,7 @@ fun CardDataOutput(
         )
 
         Text(
-            text = prepaid,
+            text = cardAllData.value.prepaid,
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataPrepaid){
@@ -180,7 +173,7 @@ fun CardDataOutput(
         )
 
         Text(
-            text = country,
+            text = cardAllData.value.countyName,
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataCountry){
@@ -190,7 +183,7 @@ fun CardDataOutput(
         )
 
         Text(
-            text = "(latitude: $latitude, longitude: $longitude)",
+            text = "(latitude: ${cardAllData.value.latitude}, longitude: ${cardAllData.value.longitude})",
             style = typography.subtitle2,
             color = Silver,
             fontSize = 9.sp,
@@ -214,7 +207,7 @@ fun CardDataOutput(
         )
 
         Text(
-            text = bank,
+            text = cardAllData.value.name,
             style = typography.subtitle2,
             color = Silver,
             modifier = Modifier.constrainAs(dataBank){
@@ -226,22 +219,3 @@ fun CardDataOutput(
 }
 
 
-// Temporary implementation of user interface
-
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun PricePreview() {
-    CardDataOutput(
-        schemaNetwork = "?",
-        brand = "?",
-        cardNumber = "?",
-        type = "Debit / Credit",
-        prepaid = "Yes / No",
-        country = "?",
-        bank = "?",
-        longitude = "?",
-        latitude = "?"
-    )
-
-}
