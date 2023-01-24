@@ -3,8 +3,8 @@ package com.example.cardinfo.data
 data class CardModel(
 
     val number: Number? = null,
-    val country: Bank? = null,
-    val bank: Country? = null,
+    val country: Country? = null,
+    val bank: Bank? = null,
 
     // All the rest
     val scheme: String? = null,

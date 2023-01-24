@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.cardinfo.R
 import com.example.cardinfo.data.CardModel
@@ -82,8 +83,7 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
             }
         }
 
-
-        /*Text(
+        Text(
             text = stringResource(id = R.string.card_number),
             style = typography.subtitle2,
             color = Silver,
@@ -104,14 +104,16 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
         )
 
         if (item.value.isNotEmpty()) {
-            Text(
-                text = item.value[0].number.length,
-                style = typography.subtitle2,
-                color = Silver,
-                modifier = Modifier.constrainAs(dataCardNumber) {
-                    top.linkTo(textLength.bottom)
-                }
-            )
+            item.value[0].number?.length?.let{
+                Text(
+                    text = it,
+                    style = typography.subtitle2,
+                    color = Silver,
+                    modifier = Modifier.constrainAs(dataCardNumber) {
+                        top.linkTo(textLength.bottom)
+                    }
+                )
+            }
         }
 
         Text(
@@ -129,15 +131,17 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
         )
 
         if (item.value.isNotEmpty()) {
-            Text(
-                text = item.value[0].type,
-                style = typography.subtitle2,
-                color = Silver,
-                modifier = Modifier.constrainAs(dataType) {
-                    start.linkTo(textType.start)
-                    top.linkTo(textType.bottom)
-                }
-            )
+            item.value[0].type?.let {
+                Text(
+                    text = it,
+                    style = typography.subtitle2,
+                    color = Silver,
+                    modifier = Modifier.constrainAs(dataType) {
+                        start.linkTo(textType.start)
+                        top.linkTo(textType.bottom)
+                    }
+                )
+            }
         }
 
         Text(
@@ -151,16 +155,19 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
                 }
         )
 
-        if (item.value.isNotEmpty())
-            Text(
-                text = item.value[0].prepaid,
-                style = typography.subtitle2,
-                color = Silver,
-                modifier = Modifier.constrainAs(dataPrepaid) {
-                    start.linkTo(textPrepaid.start)
-                    top.linkTo(textPrepaid.bottom)
-                }
-            )
+        if (item.value.isNotEmpty()) {
+            item.value[0].prepaid?.let {
+                Text(
+                    text = it,
+                    style = typography.subtitle2,
+                    color = Silver,
+                    modifier = Modifier.constrainAs(dataPrepaid) {
+                        start.linkTo(textPrepaid.start)
+                        top.linkTo(textPrepaid.bottom)
+                    }
+                )
+            }
+        }
 
         Text(
             text = stringResource(id = R.string.country),
@@ -174,30 +181,33 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
         )
 
         if (item.value.isNotEmpty()) {
-
-            Text(
-                text = "${item.value[0].country.emoji} ${item.value[0].country.name}",
-                style = typography.subtitle2,
-                color = Silver,
-                modifier = Modifier.constrainAs(dataCountry) {
-                    start.linkTo(textCountry.start)
-                    top.linkTo(textCountry.bottom)
-                }
-            )
+            item.value[0].country?.emoji?.let {
+                Text(
+                    text = "$it ${item.value[0].country?.name}",
+                    style = typography.subtitle2,
+                    color = Silver,
+                    modifier = Modifier.constrainAs(dataCountry) {
+                        start.linkTo(textCountry.start)
+                        top.linkTo(textCountry.bottom)
+                    }
+                )
+            }
         }
 
         if (item.value.isNotEmpty()) {
-            Text(
-                text = "(latitude: ${item.value[0].country.latitude}, longitude: ${item.value[0].country.longitude})",
-                style = typography.subtitle2,
-                color = Silver,
-                fontSize = 9.sp,
+            item.value[0].country?.latitude?.let {
+                Text(
+                    text = "(latitude: $it}, longitude: ${item.value[0].country?.longitude})",
+                    style = typography.subtitle2,
+                    color = Silver,
+                    fontSize = 9.sp,
 
-                modifier = Modifier.constrainAs(textCoordinates) {
-                    start.linkTo(dataCountry.start)
-                    top.linkTo(dataCountry.bottom)
-                }
-            )
+                    modifier = Modifier.constrainAs(textCoordinates) {
+                        start.linkTo(dataCountry.start)
+                        top.linkTo(dataCountry.bottom)
+                    }
+                )
+            }
         }
 
         Text(
@@ -215,9 +225,9 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
         if (item.value.isNotEmpty()) {
             if ( item.value[0].bank != null){
                 Text(
-                    text = "${item.value[0].bank.name}, ${item.value[0].bank.city}" +
-                            "\n${item.value[0].bank.url}" +
-                            "\n${item.value[0].bank.phone}",
+                    text = "${item.value[0].bank?.name}, ${item.value[0].bank?.city}" +
+                            "\n${item.value[0].bank?.url}" +
+                            "\n${item.value[0].bank?.phone}",
                     style = typography.subtitle2,
                     color = Silver,
                     modifier = Modifier.constrainAs(dataBank) {
@@ -226,7 +236,7 @@ fun CardDataOutput(item: MutableState<List<CardModel>>) {
                     }
                 )
             }
-        }*/
+        }
     }
 }
 

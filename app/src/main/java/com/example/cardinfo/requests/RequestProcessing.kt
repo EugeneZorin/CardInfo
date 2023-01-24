@@ -18,11 +18,10 @@ class RequestProcessing() {
             .build()
 
         response = client.newCall(request).execute()
-        val requestCard = response.body.string()
 
+        val requestCard = response.body.string()
         val gson = GsonBuilder().create()
 
         return listOf(gson.fromJson(requestCard, CardModel::class.java))
-
     }
 }
