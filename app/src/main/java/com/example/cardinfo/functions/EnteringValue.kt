@@ -13,7 +13,7 @@ class EnteringValue {
 
     // Filter for entering the card number with a space every 4 digits
     fun creditCardFilter(cardNumber: AnnotatedString): TransformedText {
-        val trimmed = if (cardNumber.text.length >= 16) {
+       val trimmed = if (cardNumber.text.length >= 16) {
             cardNumber.text.substring(0..15)
         } else { cardNumber.text }
 
