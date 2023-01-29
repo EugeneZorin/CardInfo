@@ -13,12 +13,15 @@ import androidx.compose.ui.unit.sp
 import com.example.cardinfo.R
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.ui.theme.Silver
+import java.util.*
 
 @Composable
 fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
 
 
     Column{
+
+
 
         Text(
             text = stringResource(id = R.string.type),
@@ -28,16 +31,22 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
         )
 
         if (item.value.isNotEmpty()) {
+
             item.value[0].type?.let {
+
                 Text(
-                    text = it,
+                    text = it.capitalize(Locale.ROOT),
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
-                    modifier = Modifier.offset(x = 30.dp, y = 10.dp)
+                    modifier = Modifier.offset(x = 30.dp, y = 10.dp),
                 )
             }
+
         }
-        QuestionInsteadMeaning(item, 30, 10)
+
+        QuestionsMarksType(item, 30, 10)
+
+
 
 
         Text(
@@ -50,14 +59,14 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
         if (item.value.isNotEmpty()) {
             item.value[0].prepaid?.let {
                 Text(
-                    text = it,
+                    text = if (it.toBoolean()) { "Yes" } else { "No"},
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
                     modifier = Modifier.offset(x = 30.dp, y = 28.dp)
                 )
             }
         }
-        QuestionInsteadMeaning(item, 30, 28)
+        QuestionsMarksPrepaid(item, 30, 28)
 
         Text(
             text = stringResource(id = R.string.country),
@@ -76,7 +85,7 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionInsteadMeaning(item, 30, 50)
+        QuestionsMarksEmoji(item, 30, 50)
 
 
         if (item.value.isNotEmpty()) {
@@ -91,7 +100,7 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionInsteadMeaning(item, 30, 50)
+        QuestionsMarksLatitude(item, 30, 50)
 
         Text(
             text = stringResource(id = R.string.bank),
@@ -114,9 +123,9 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionInsteadMeaning(item, 30, 75)
-        QuestionInsteadMeaning(item, 30, 75)
-        QuestionInsteadMeaning(item, 30, 75)
+        QuestionsMarksBank(item, 30, 75)
+        QuestionsMarksBank(item, 30, 75)
+        QuestionsMarksBank(item, 30, 75)
     }
 
 

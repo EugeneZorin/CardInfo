@@ -11,10 +11,13 @@ data class CardModel(
     val type: String? = null,
     val brand: String? = null,
     val prepaid: String? = null,
+
+    // error handler
+    var errorHandler: Boolean? = false
 ) {
     data class Number(
         val length: String?,
-        val luhn: Boolean
+        val luhn: String?
     )
 
     data class Country(

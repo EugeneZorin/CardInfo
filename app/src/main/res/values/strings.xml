@@ -4,6 +4,7 @@
     <string name="brand">Brand</string>
     <string name="card_number">Card number</string>
     <string name="length">Length</string>
+    <string name="luhn">Luhn</string>
     <string name="type">Type</string>
     <string name="prepaid">Prepaid</string>
     <string name="country">Country</string>

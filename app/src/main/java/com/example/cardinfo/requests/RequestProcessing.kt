@@ -2,26 +2,36 @@ package com.example.cardinfo.requests
 
 import com.example.cardinfo.data.CardModel
 import com.google.gson.GsonBuilder
-import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.*
 
 
-class RequestProcessing() {
+class RequestProcessing(){
 
     private val client = OkHttpClient()
-    private lateinit var response: Response
+
+    private fun Request.Builder.endpoint(endpoint: String): Request.Builder {
+        url("https://lookup.binlist.net/$endpoint")
+        return this
+    }
 
     fun getData(url: String): List<CardModel> {
 
-        val request = okhttp3.Request.Builder()
-            .url("https://lookup.binlist.net/$url")
-            .build()
-
-        response = client.newCall(request).execute()
-
-        val requestCard = response.body.string()
         val gson = GsonBuilder().create()
 
-        return listOf(gson.fromJson(requestCard, CardModel::class.java))
+        val request = Request.Builder()
+            .endpoint(url)
+            .build()
+
+        val response = client.newCall(request).execute()
+
+
+        return if (response.code > 400) {
+            listOf(CardModel(errorHandler = true))
+
+        } else {
+            listOf(gson.fromJson(response.body.string(), CardModel::class.java))
+        }
     }
 }
+
+
