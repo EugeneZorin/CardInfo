@@ -35,13 +35,13 @@ fun CardNumberEntry(
             /*
             * Check to send a new request for another card
             * If the request has already been sent, then the value of checkingFirstRequest becomes true.
-            * If the value 3 becomes greater than or equal to the length of the card, then the input of a new card number is fixed
+            * If the value 3 and 7 becomes greater than or equal to the length of the card, then the input of a new card number is fixed
             * The default value is set to the number of characters of the entered value to send the request
             * as is required for API 27 and lower or when using the default
             * Delete old values from CardModel
             * */
 
-            if (cardNumber.length <= 3 ) { if(checkingFirstRequest.value){
+            if (cardNumber.length <= 3 || cardNumber.length <= 7) { if(checkingFirstRequest.value){
                     characterLimitSubmittingRequest.value = 4
                     cardInfoCardModel.value = listOf(cardModel)
                     checkingFirstRequest.value = false
