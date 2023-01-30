@@ -1,5 +1,6 @@
 package com.example.cardinfo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cardinfo.components.*
+import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
+import com.example.cardinfo.components.screens.basic.ButtonSave
 import com.example.cardinfo.data.CardModel
+import android.content.Context
+
+
 
 
 class MainActivity : ComponentActivity() {
@@ -22,6 +28,13 @@ class MainActivity : ComponentActivity() {
             MainScreen()
         }
     }
+
+
+    fun buttonOpenSaveDataCard(context: Context){
+       intent = Intent(context, SecondActivity::class.java)
+       context.startActivity(intent)
+    }
+
 }
 
 @Preview(showBackground = true)
@@ -44,6 +57,7 @@ fun MainScreen() {
         CardNumberEntry(cardInfoCardModel, characterLimitSubmittingRequest)
     }
 
+    // Colum with DataCard
     Row(modifier = Modifier
         .offset(x = 30.dp, y = 50.dp)) {
 
@@ -57,27 +71,23 @@ fun MainScreen() {
         {
             CardDataOutputTwoColum(cardInfoCardModel) }
 
-        /*Column () {
-            Box (modifier = Modifier
-                .offset(x = 50.dp, y = 20.dp))
-            {
-                CardNumberEntry(cardInfoCardModel, characterLimitSubmittingRequest)
-            }
-
-            Box (modifier = Modifier
-                .offset(x = 15.dp, y = 50.dp))
-            {
-                CardDataOutputOneColum(cardInfoCardModel) }
-        }*/
-
-        /*Column() {
-            Box (modifier = Modifier
-                .offset(x = 15.dp, y = 50.dp))
-            {
-                CardDataOutputTwoColum(cardInfoCardModel) }
-        }*/
-
     }
 
+    // Buttons
+    Row(modifier = Modifier
+        .offset(x = 0.dp, y = 0.dp)
+        .fillMaxSize()) {
 
+        Box(modifier = Modifier
+            .offset(x = 30.dp, y = 570.dp))
+        {
+            ButtonSave()
+        }
+
+        Box(modifier = Modifier
+            .offset(x = 70.dp, y = 570.dp))
+        {
+            ButtonOpenSecondScreen()
+        }
+    }
 }
