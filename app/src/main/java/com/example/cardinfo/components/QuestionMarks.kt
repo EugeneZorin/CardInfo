@@ -94,9 +94,33 @@ fun QuestionsMarksLatitude(item: MutableState<List<CardModel>>, xParameter: Int,
 }
 
 @Composable
-fun QuestionsMarksBank(item: MutableState<List<CardModel>>, xParameter: Int, yParameter: Int){
+fun QuestionsMarksBankName(item: MutableState<List<CardModel>>, xParameter: Int, yParameter: Int){
 
-    if (item.value.isEmpty() || item.value[0].bank?.city == null) {
+    if (item.value.isEmpty() || item.value[0].bank?.name == null) {
+        Text(text = "?",
+            color = Silver,
+            modifier = Modifier.offset(x = xParameter.dp, y = yParameter.dp)
+        )
+    }
+
+}
+
+@Composable
+fun QuestionsMarksBankUrl(item: MutableState<List<CardModel>>, xParameter: Int, yParameter: Int){
+
+    if (item.value.isEmpty() || item.value[0].bank?.url == null) {
+        Text(text = "?",
+            color = Silver,
+            modifier = Modifier.offset(x = xParameter.dp, y = yParameter.dp)
+        )
+    }
+
+}
+
+@Composable
+fun QuestionsMarksBankPhone(item: MutableState<List<CardModel>>, xParameter: Int, yParameter: Int){
+
+    if (item.value.isEmpty() || item.value[0].bank?.phone == null) {
         Text(text = "?",
             color = Silver,
             modifier = Modifier.offset(x = xParameter.dp, y = yParameter.dp)
