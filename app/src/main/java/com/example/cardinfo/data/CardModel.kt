@@ -1,6 +1,5 @@
 package com.example.cardinfo.data
-
-data class CardModel(
+data class CardModel (
 
     val number: Number? = null,
     val country: Country? = null,
@@ -8,13 +7,13 @@ data class CardModel(
 
     // All the rest
     val scheme: String? = null,
-    val type: String? = null,
+    var type: String? = null,
     val brand: String? = null,
     val prepaid: String? = null,
 
     // error handler
     var errorHandler: Boolean? = false
-) {
+)  {
     data class Number(
         val length: String?,
         val luhn: String?

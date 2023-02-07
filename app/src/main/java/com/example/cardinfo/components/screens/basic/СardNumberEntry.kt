@@ -1,5 +1,6 @@
 package com.example.cardinfo.components
 
+import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
@@ -17,11 +18,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun CardNumberEntry(
     cardInfoCardModel: MutableState<List<CardModel>>,
+    saveCardsInformation: MutableState<SharedPreferences?>,
     characterLimitSubmittingRequest: MutableState<Int>
 ) {
 
     val enteringValue = EnteringValue()
     val requestProcessing = RequestProcessing()
+
+
+
+
 
     val checkingFirstRequest = remember { mutableStateOf(false) }
     val pattern = remember { Regex("^\\d+\$") }
@@ -59,7 +65,7 @@ fun CardNumberEntry(
                     if (cardNumber.length >= characterLimitSubmittingRequest.value) {
                         characterLimitSubmittingRequest.value += 4
                         checkingFirstRequest.value = true
-                        cardInfoCardModel.value = requestProcessing.getData(cardNumber)
+                        cardInfoCardModel.value = requestProcessing.getData(cardNumber, saveCardsInformation)
                     }
                 }
             }
