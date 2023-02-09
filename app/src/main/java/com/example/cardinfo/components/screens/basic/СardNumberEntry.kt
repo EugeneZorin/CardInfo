@@ -1,6 +1,5 @@
 package com.example.cardinfo.components
 
-import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
@@ -18,21 +17,17 @@ import kotlinx.coroutines.launch
 @Composable
 fun CardNumberEntry(
     cardInfoCardModel: MutableState<List<CardModel>>,
-    saveCardsInformation: MutableState<SharedPreferences?>,
-    characterLimitSubmittingRequest: MutableState<Int>
+    characterLimitSubmittingRequest: MutableState<Int>,
+    cardNumber: String,
+    updateCardNumber: (String) -> Unit,
+    checkingFirstRequest: MutableState<Boolean>,
+    pattern: Regex
+
 ) {
 
     val enteringValue = EnteringValue()
     val requestProcessing = RequestProcessing()
 
-
-
-
-
-    val checkingFirstRequest = remember { mutableStateOf(false) }
-    val pattern = remember { Regex("^\\d+\$") }
-    var cardNumber by remember { mutableStateOf("") }
-    val cardModel = CardModel()
 
     OutlinedTextField(
         value = cardNumber,
@@ -49,7 +44,7 @@ fun CardNumberEntry(
 
             if (cardNumber.length <= 3 || cardNumber.length <= 7) { if(checkingFirstRequest.value){
                     characterLimitSubmittingRequest.value = 4
-                    cardInfoCardModel.value = listOf(cardModel)
+                    cardInfoCardModel.value = listOf(CardModel())
                     checkingFirstRequest.value = false
                 }
             }
@@ -57,7 +52,7 @@ fun CardNumberEntry(
 
             GlobalScope.launch {
                 if (it.isEmpty() || it.matches(pattern)) {
-                    cardNumber = it
+                    updateCardNumber(it)
 
                     // Sends the url to RequestProcessing if the entered characters are greater than or equal to 4
                     // 4 is added to the number of characters for the next sending
@@ -65,7 +60,7 @@ fun CardNumberEntry(
                     if (cardNumber.length >= characterLimitSubmittingRequest.value) {
                         characterLimitSubmittingRequest.value += 4
                         checkingFirstRequest.value = true
-                        cardInfoCardModel.value = requestProcessing.getData(cardNumber, saveCardsInformation)
+                        cardInfoCardModel.value = requestProcessing.getData(cardNumber)
                     }
                 }
             }
