@@ -3,6 +3,7 @@ package com.example.cardinfo.components
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.functions.EnteringValue
@@ -11,7 +12,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
 // fields for entering the card number
 @OptIn(DelicateCoroutinesApi::class)
 @Composable
@@ -19,7 +19,6 @@ fun CardNumberEntry(
     cardInfoCardModel: MutableState<List<CardModel>>,
     characterLimitSubmittingRequest: MutableState<Int>,
     cardNumber: String,
-    updateCardNumber: (String) -> Unit,
     checkingFirstRequest: MutableState<Boolean>,
     pattern: Regex
 
@@ -28,9 +27,13 @@ fun CardNumberEntry(
     val enteringValue = EnteringValue()
     val requestProcessing = RequestProcessing()
 
+    var cardNumberCore by remember { mutableStateOf(cardNumber) }
+
+
+
 
     OutlinedTextField(
-        value = cardNumber,
+        value = cardNumberCore ,
         onValueChange = {
 
             /*
@@ -42,7 +45,8 @@ fun CardNumberEntry(
             * Delete old values from CardModel
             * */
 
-            if (cardNumber.length <= 3 || cardNumber.length <= 7) { if(checkingFirstRequest.value){
+
+            if (cardNumberCore.length <= 3 || cardNumberCore.length <= 7) { if(checkingFirstRequest.value){
                     characterLimitSubmittingRequest.value = 4
                     cardInfoCardModel.value = listOf(CardModel())
                     checkingFirstRequest.value = false
@@ -52,15 +56,15 @@ fun CardNumberEntry(
 
             GlobalScope.launch {
                 if (it.isEmpty() || it.matches(pattern)) {
-                    updateCardNumber(it)
+                    cardNumberCore = it
 
                     // Sends the url to RequestProcessing if the entered characters are greater than or equal to 4
                     // 4 is added to the number of characters for the next sending
 
-                    if (cardNumber.length >= characterLimitSubmittingRequest.value) {
+                    if (cardNumberCore.length >= characterLimitSubmittingRequest.value) {
                         characterLimitSubmittingRequest.value += 4
                         checkingFirstRequest.value = true
-                        cardInfoCardModel.value = requestProcessing.getData(cardNumber)
+                        cardInfoCardModel.value = requestProcessing.getData(cardNumberCore)
                     }
                 }
             }

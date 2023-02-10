@@ -1,9 +1,6 @@
-package com.example.cardinfo.ui.theme
+package com.example.cardinfo.functions
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.example.cardinfo.data.CardModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +9,8 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class MainViewModel: ViewModel() {
 
-   /* private val _uiState = MutableStateFlow(CardModel())*/
-    /*val uiState: StateFlow<CardModel> = _uiState.asStateFlow()*/
+    private val _uiState = MutableStateFlow(CardModel())
+    val uiState: StateFlow<CardModel> = _uiState.asStateFlow()
 
     val cardInfoCardModel = mutableStateOf(listOf<CardModel>())
 
@@ -24,9 +21,5 @@ class MainViewModel: ViewModel() {
     val pattern = Regex("^\\d+\$")
 
     var cardNumber by mutableStateOf("")
-        private set
 
-    fun updateCardNumber(EntryCardNumber: String){
-        cardNumber = EntryCardNumber
-    }
 }

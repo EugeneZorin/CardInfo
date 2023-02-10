@@ -12,8 +12,9 @@ import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
 import com.example.cardinfo.components.screens.basic.ButtonSave
 import android.content.Context
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cardinfo.ui.theme.MainViewModel
+import com.example.cardinfo.functions.MainViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +40,8 @@ fun MainScreen(
     mainViewModel: MainViewModel = viewModel()
 ) {
 
+
+
     Box (modifier = Modifier
         .offset(x = 50.dp, y = 20.dp)
         .fillMaxSize())
@@ -47,7 +50,6 @@ fun MainScreen(
             mainViewModel.cardInfoCardModel,
             mainViewModel.characterLimitSubmittingRequest,
             cardNumber = mainViewModel.cardNumber,
-            updateCardNumber = {mainViewModel.updateCardNumber(it)},
             checkingFirstRequest = mainViewModel.checkingFirstRequest,
             pattern = mainViewModel.pattern
         )
