@@ -13,9 +13,12 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
 import com.example.cardinfo.components.screens.basic.ButtonSave
 import com.example.cardinfo.components.screens.second.ButtonBack
+import com.example.cardinfo.data.CardModel
+import com.example.cardinfo.functions.MainViewModel
 
 class SecondActivity: ComponentActivity() {
 

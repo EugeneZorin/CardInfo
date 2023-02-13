@@ -5,8 +5,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.MainActivity
 import com.example.cardinfo.data.CardModel
+import com.example.cardinfo.functions.MainViewModel
 
 @Composable
 fun ButtonSave(cardInfoCardModel: MutableState<List<CardModel>>) {
@@ -19,14 +21,16 @@ fun ButtonSave(cardInfoCardModel: MutableState<List<CardModel>>) {
 }
 
 @Composable
-fun ButtonOpenSecondScreen(cardInfoCardModel: MutableState<List<CardModel>>) {
+fun ButtonOpenSecondScreen(mainViewModel: MainViewModel = viewModel()) {
 
     val mainActivity = MainActivity()
     val context = LocalContext.current
 
-    Button(onClick = {
 
+    Button(onClick = {
+        mainActivity.saveData(mainViewModel.cardInfoCardModel.value[0].toString())
         mainActivity.buttonOpenSaveDataCard(context)
+
     }) {
         Text(text = "Сохраненные номера")
     }

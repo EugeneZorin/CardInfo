@@ -11,36 +11,48 @@ import com.example.cardinfo.components.*
 import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
 import com.example.cardinfo.components.screens.basic.ButtonSave
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.functions.MainViewModel
 
 
 class MainActivity : ComponentActivity() {
 
+
+    private var pref: SharedPreferences? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pref = getSharedPreferences("MAIN_SCREEN", Context.MODE_PRIVATE)
 
         setContent {
             MainScreen()
         }
     }
 
+
     fun buttonOpenSaveDataCard(context: Context) {
        intent = Intent(context, SecondActivity::class.java)
        context.startActivity(intent)
     }
+
+    fun saveData(res: String){
+        val editor = pref?.edit()
+        editor?.putString("main", res)
+        editor?.apply()
+    }
+
+
 }
 
 
 
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel = viewModel()
+    mainViewModel: MainViewModel = viewModel(),
 ) {
-
-
 
     Box (modifier = Modifier
         .offset(x = 50.dp, y = 20.dp)
@@ -86,7 +98,7 @@ fun MainScreen(
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
-            ButtonOpenSecondScreen(mainViewModel.cardInfoCardModel)
+            ButtonOpenSecondScreen()
         }
     }
 }

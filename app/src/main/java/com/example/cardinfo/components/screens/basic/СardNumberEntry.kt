@@ -27,10 +27,7 @@ fun CardNumberEntry(
     val enteringValue = EnteringValue()
     val requestProcessing = RequestProcessing()
 
-    var cardNumberCore by remember { mutableStateOf(cardNumber) }
-
-
-
+    var cardNumberCore by rememberSaveable() { mutableStateOf(cardNumber) }
 
     OutlinedTextField(
         value = cardNumberCore ,
@@ -45,14 +42,12 @@ fun CardNumberEntry(
             * Delete old values from CardModel
             * */
 
-
             if (cardNumberCore.length <= 3 || cardNumberCore.length <= 7) { if(checkingFirstRequest.value){
                     characterLimitSubmittingRequest.value = 4
                     cardInfoCardModel.value = listOf(CardModel())
                     checkingFirstRequest.value = false
                 }
             }
-
 
             GlobalScope.launch {
                 if (it.isEmpty() || it.matches(pattern)) {
