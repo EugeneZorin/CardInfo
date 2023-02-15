@@ -1,5 +1,6 @@
 package com.example.cardinfo.components
 
+import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
@@ -7,10 +8,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.functions.EnteringValue
+import com.example.cardinfo.requests.RequestAdapter
 import com.example.cardinfo.requests.RequestProcessing
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.Response
 
 // fields for entering the card number
 @OptIn(DelicateCoroutinesApi::class)
@@ -20,12 +23,15 @@ fun CardNumberEntry(
     characterLimitSubmittingRequest: MutableState<Int>,
     cardNumber: String,
     checkingFirstRequest: MutableState<Boolean>,
-    pattern: Regex
-
-) {
+    pattern: Regex,
+    responseSaveData: MutableState<List<Response>>,
+    preferences: SharedPreferences,
+    ) {
 
     val enteringValue = EnteringValue()
     val requestProcessing = RequestProcessing()
+    val requestAdapter = RequestAdapter()
+
 
     var cardNumberCore by rememberSaveable() { mutableStateOf(cardNumber) }
 
@@ -59,7 +65,8 @@ fun CardNumberEntry(
                     if (cardNumberCore.length >= characterLimitSubmittingRequest.value) {
                         characterLimitSubmittingRequest.value += 4
                         checkingFirstRequest.value = true
-                        cardInfoCardModel.value = requestProcessing.getData(cardNumberCore)
+                        responseSaveData.value = listOf(requestProcessing.getData(cardNumberCore))
+                        cardInfoCardModel.value = requestAdapter.requestAdapter(responseSaveData.value, preferences)
                     }
                 }
             }

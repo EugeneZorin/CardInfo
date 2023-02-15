@@ -14,45 +14,47 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.functions.MainViewModel
+import com.example.cardinfo.requests.RequestAdapter
+import com.google.gson.GsonBuilder
 
+const val MAIN_SCREEN = "MAIN_SCREEN"
+const val DATA_TEST_VALUE = "DATA_TEST_VALUE"
 
 class MainActivity : ComponentActivity() {
 
-
-    private var pref: SharedPreferences? = null
-
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pref = getSharedPreferences("MAIN_SCREEN", Context.MODE_PRIVATE)
+
+        preferences = getSharedPreferences(MAIN_SCREEN, Context.MODE_PRIVATE)
 
         setContent {
-            MainScreen()
+            MainScreen(preferences)
         }
     }
-
 
     fun buttonOpenSaveDataCard(context: Context) {
        intent = Intent(context, SecondActivity::class.java)
        context.startActivity(intent)
     }
-
-    fun saveData(res: String){
-        val editor = pref?.edit()
-        editor?.putString("main", res)
-        editor?.apply()
-    }
-
-
 }
 
 
 
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel = viewModel(),
+    preferences: SharedPreferences,
+    mainViewModel: MainViewModel = viewModel()
+
 ) {
+    val gson = GsonBuilder().create()
+    val key = preferences.getString(DATA_TEST_VALUE, "")
+    mainViewModel.cardInfoCardModel.value = listOf(gson.fromJson(key, CardModel::class.java))
+
+
 
     Box (modifier = Modifier
         .offset(x = 50.dp, y = 20.dp)
@@ -63,7 +65,9 @@ fun MainScreen(
             mainViewModel.characterLimitSubmittingRequest,
             cardNumber = mainViewModel.cardNumber,
             checkingFirstRequest = mainViewModel.checkingFirstRequest,
-            pattern = mainViewModel.pattern
+            pattern = mainViewModel.pattern,
+            mainViewModel.responseSaveData,
+            preferences
         )
 
     }
@@ -101,4 +105,5 @@ fun MainScreen(
             ButtonOpenSecondScreen()
         }
     }
+
 }

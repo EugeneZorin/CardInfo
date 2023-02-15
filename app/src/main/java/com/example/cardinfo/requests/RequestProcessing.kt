@@ -1,9 +1,5 @@
 package com.example.cardinfo.requests
 
-import android.content.SharedPreferences
-import androidx.compose.runtime.MutableState
-import com.example.cardinfo.data.CardModel
-import com.google.gson.GsonBuilder
 import okhttp3.*
 
 
@@ -16,22 +12,14 @@ class RequestProcessing(){
         return this
     }
 
-    fun getData(url: String): List<CardModel> {
-
-        val gson = GsonBuilder().create()
+    fun getData(url: String): Response {
 
         val request = Request.Builder()
             .endpoint(url)
             .build()
 
-        val response = client.newCall(request).execute()
 
-        return if (response.code > 400) {
-            listOf(CardModel(errorHandler = true))
-
-        } else {
-            listOf(gson.fromJson(response.body.string(), CardModel::class.java))
-        }
+        return client.newCall(request).execute()
     }
 }
 
