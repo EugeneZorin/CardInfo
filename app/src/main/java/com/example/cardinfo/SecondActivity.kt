@@ -2,30 +2,27 @@ package com.example.cardinfo
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
-import com.example.cardinfo.components.screens.basic.ButtonSave
 import com.example.cardinfo.components.screens.second.ButtonBack
-import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.functions.MainViewModel
 
 class SecondActivity: ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         setContent{
             SecondScreen()
+
         }
     }
 
@@ -37,7 +34,7 @@ class SecondActivity: ComponentActivity() {
 }
 
 @Composable
-fun SecondScreen(){
+fun SecondScreen() {
 
     Box(modifier = Modifier
         .offset(x = 145.dp, y = 570.dp)

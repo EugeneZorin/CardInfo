@@ -1,4 +1,4 @@
-package com.example.cardinfo.components
+package com.example.cardinfo.components.screens.basic
 
 import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
@@ -7,7 +7,15 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.example.cardinfo.data.CardModel
+import com.example.cardinfo.data.ConstantValue.BRACKETS_WITHOUT_SPACES
+import com.example.cardinfo.data.ConstantValue.FOUR
+import com.example.cardinfo.data.ConstantValue.HOME_SCREEN_VALUES
+import com.example.cardinfo.data.ConstantValue.INPUT_VALUE
+import com.example.cardinfo.data.ConstantValue.REGEX
+import com.example.cardinfo.data.ConstantValue.SEVEN
+import com.example.cardinfo.data.ConstantValue.TREE
 import com.example.cardinfo.functions.EnteringValue
+import com.example.cardinfo.functions.SavingStateMainScreen
 import com.example.cardinfo.requests.RequestAdapter
 import com.example.cardinfo.requests.RequestProcessing
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -23,21 +31,35 @@ fun CardNumberEntry(
     characterLimitSubmittingRequest: MutableState<Int>,
     cardNumber: String,
     checkingFirstRequest: MutableState<Boolean>,
-    pattern: Regex,
     responseSaveData: MutableState<List<Response>>,
-    preferences: SharedPreferences,
+    preferencesHomeScreenValue: SharedPreferences,
     ) {
 
-    val enteringValue = EnteringValue()
     val requestProcessing = RequestProcessing()
     val requestAdapter = RequestAdapter()
+    val savingStateMainScreen = SavingStateMainScreen()
+
+    val enteringValue = EnteringValue()
+    val pattern = Regex(REGEX)
+
+    var cardNumberRemember by rememberSaveable() { mutableStateOf(cardNumber) }
+
+    val key = preferencesHomeScreenValue.getString(
+        INPUT_VALUE,
+        BRACKETS_WITHOUT_SPACES
+    )
+
+    if (key != BRACKETS_WITHOUT_SPACES){
+        cardNumberRemember = key.toString()
+    }
 
 
-    var cardNumberCore by rememberSaveable() { mutableStateOf(cardNumber) }
 
     OutlinedTextField(
-        value = cardNumberCore ,
+        value = cardNumberRemember ,
         onValueChange = {
+
+            if (key != null) { savingStateMainScreen.checkingKey(key, checkingFirstRequest) }
 
             /*
             * Check to send a new request for another card
@@ -48,25 +70,37 @@ fun CardNumberEntry(
             * Delete old values from CardModel
             * */
 
-            if (cardNumberCore.length <= 3 || cardNumberCore.length <= 7) { if(checkingFirstRequest.value){
-                    characterLimitSubmittingRequest.value = 4
+            if (cardNumberRemember.length <= TREE || cardNumberRemember.length <= SEVEN) { if(checkingFirstRequest.value){
+                    characterLimitSubmittingRequest.value = FOUR
                     cardInfoCardModel.value = listOf(CardModel())
                     checkingFirstRequest.value = false
+                    preferencesHomeScreenValue.edit().remove(INPUT_VALUE).apply()
+                    preferencesHomeScreenValue.edit().remove(HOME_SCREEN_VALUES).apply()
+
                 }
             }
 
             GlobalScope.launch {
                 if (it.isEmpty() || it.matches(pattern)) {
-                    cardNumberCore = it
+
+                    cardNumberRemember = it
+                    preferencesHomeScreenValue.edit().putString(INPUT_VALUE, it).apply()
 
                     // Sends the url to RequestProcessing if the entered characters are greater than or equal to 4
                     // 4 is added to the number of characters for the next sending
 
-                    if (cardNumberCore.length >= characterLimitSubmittingRequest.value) {
-                        characterLimitSubmittingRequest.value += 4
+                    if (cardNumberRemember.length >= characterLimitSubmittingRequest.value) {
+
+                        characterLimitSubmittingRequest.value += FOUR
                         checkingFirstRequest.value = true
-                        responseSaveData.value = listOf(requestProcessing.getData(cardNumberCore))
-                        cardInfoCardModel.value = requestAdapter.requestAdapter(responseSaveData.value, preferences)
+
+                        responseSaveData.value = listOf(requestProcessing.getData(cardNumberRemember))
+
+                        cardInfoCardModel.value = requestAdapter.requestAdapter(
+                            responseSaveData.value,
+                            preferencesHomeScreenValue,
+                            cardNumberRemember
+                        )
                     }
                 }
             }

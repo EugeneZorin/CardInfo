@@ -3,21 +3,27 @@ package com.example.cardinfo.functions
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.example.cardinfo.data.CardModel
+import com.example.cardinfo.data.ConstantValue.BRACKETS_WITHOUT_SPACES
+import com.example.cardinfo.data.ConstantValue.FOUR
 import okhttp3.Response
 
-class MainViewModel(): ViewModel() {
+class MainViewModel : ViewModel() {
 
-    var cardNumber by mutableStateOf("")
-        private set
+    //
+    var cardNumber by mutableStateOf(BRACKETS_WITHOUT_SPACES)
 
-    val cardInfoCardModel = mutableStateOf(listOf<CardModel>())
+    // The main storage is data for the view
+    val infoCardModel = mutableStateOf(listOf<CardModel>())
 
+    // Saves the entered json values from the server
     val responseSaveData = mutableStateOf(listOf<Response>())
+
     // The number of characters after which the request is sent
-    val characterLimitSubmittingRequest = mutableStateOf(4)
+    val characterLimitSubmittingRequest = mutableStateOf(FOUR)
 
-
+    //
     val checkingFirstRequest = mutableStateOf(false)
-    val pattern = Regex("^\\d+\$")
+
+
 
 }
