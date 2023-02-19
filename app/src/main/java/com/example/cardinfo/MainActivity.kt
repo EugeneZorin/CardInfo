@@ -1,51 +1,71 @@
 package com.example.cardinfo
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.components.*
 import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
 import com.example.cardinfo.components.screens.basic.ButtonSave
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.compose.runtime.*
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.components.screens.basic.CardDataOutputOneColum
 import com.example.cardinfo.components.screens.basic.CardNumberEntry
 import com.example.cardinfo.data.ConstantValue.MAIN_DATA
+import com.example.cardinfo.data.ConstantValue.OTHER_SCREEN_VALUES
+import com.example.cardinfo.data.ConstantValue.SAVE_DATA
 import com.example.cardinfo.functions.MainViewModel
 import com.example.cardinfo.functions.SavingStateMainScreen
 
 
 class MainActivity : ComponentActivity() {
 
+
+    // Temporarily
     private lateinit var preferencesHomeScreenValue: SharedPreferences
+    private lateinit var preferencesOtherScreenValue: SharedPreferences
     private val savingStateMainScreen = SavingStateMainScreen()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         preferencesHomeScreenValue = getSharedPreferences(
             MAIN_DATA,
             Context.MODE_PRIVATE
         )
 
+        // Temporarily
+        preferencesOtherScreenValue = getSharedPreferences(
+            SAVE_DATA, Context.MODE_PRIVATE
+        )
+
+
         setContent {
             MainScreen(
                 preferencesHomeScreenValue,
-                savingStateMainScreen
+                savingStateMainScreen,
+                preferencesOtherScreenValue
             )
         }
     }
 
-    fun buttonOpenSaveDataCard(context: Context) {
+
+    fun buttonOpenSaveDataCard(context: Context, preferencesOtherScreenValue: SharedPreferences) {
        intent = Intent(context, SecondActivity::class.java)
+        // Temporarily
+       intent.putExtra("key1", preferencesOtherScreenValue.getString(OTHER_SCREEN_VALUES, null))
        context.startActivity(intent)
     }
+
 
 }
 
@@ -55,14 +75,19 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(
     preferencesHomeScreenValue: SharedPreferences,
     savingStateMainScreen: SavingStateMainScreen,
+    preferencesOtherScreenValue: SharedPreferences,
     mainViewModel: MainViewModel = viewModel()
-) {
+
+
+    ) {
 
     // Write mapped data to storage
     savingStateMainScreen.recordingDisplayedData(
         preferencesHomeScreenValue,
         mainViewModel
     )
+
+
 
 
     Box (modifier = Modifier
@@ -104,13 +129,18 @@ fun MainScreen(
         Box(modifier = Modifier
             .offset(x = 30.dp, y = 570.dp))
         {
-            ButtonSave()
+            ButtonSave(
+                preferencesHomeScreenValue,
+                savingStateMainScreen,
+                preferencesOtherScreenValue
+
+            )
         }
 
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
-            ButtonOpenSecondScreen()
+            ButtonOpenSecondScreen(preferencesOtherScreenValue)
         }
     }
 

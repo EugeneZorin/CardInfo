@@ -37,4 +37,8 @@ class SavingStateMainScreen {
         }
     }
 
+    fun savingCardsValues(preferencesHomeScreenValue: SharedPreferences) {
+
+    }
+
 }
