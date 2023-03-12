@@ -12,9 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-@Preview(showBackground = true)
 @Composable
-fun SavedCard(){
+fun SavedCard() {
     Card (
         modifier = Modifier
             .offset(x = 20.dp, y = 20.dp)
@@ -33,7 +32,7 @@ fun SavedCard(){
             )
         ) {
             Text(
-                text = "Number card",
+                text = "number card",
                 color = Color.White,
                 style = TextStyle(fontSize = 25.sp)
             )

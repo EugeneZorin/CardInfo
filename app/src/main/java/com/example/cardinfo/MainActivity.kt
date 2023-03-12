@@ -1,23 +1,24 @@
 package com.example.cardinfo
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cardinfo.components.*
+import com.example.cardinfo.components.CardDataOutputTwoColum
 import com.example.cardinfo.components.screens.basic.ButtonOpenSecondScreen
 import com.example.cardinfo.components.screens.basic.ButtonSave
 import com.example.cardinfo.components.screens.basic.CardDataOutputOneColum
 import com.example.cardinfo.components.screens.basic.CardNumberEntry
 import com.example.cardinfo.data.ConstantValue.MAIN_DATA
-import com.example.cardinfo.data.ConstantValue.OTHER_SCREEN_VALUES
 import com.example.cardinfo.data.ConstantValue.SAVE_DATA
 import com.example.cardinfo.functions.MainViewModel
 import com.example.cardinfo.functions.SavingStateMainScreen
@@ -45,7 +46,8 @@ class MainActivity : ComponentActivity() {
 
         // Temporarily
         preferencesOtherScreenValue = getSharedPreferences(
-            SAVE_DATA, Context.MODE_PRIVATE
+            SAVE_DATA,
+            Context.MODE_PRIVATE
         )
 
 
@@ -57,15 +59,6 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
-
-
-    fun buttonOpenSaveDataCard(context: Context, preferencesOtherScreenValue: SharedPreferences) {
-       intent = Intent(context, SecondActivity::class.java)
-        // Temporarily
-       intent.putExtra("key1", preferencesOtherScreenValue.getString(OTHER_SCREEN_VALUES, null))
-       context.startActivity(intent)
-    }
-
 
 }
 
@@ -140,7 +133,9 @@ fun MainScreen(
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
-            ButtonOpenSecondScreen(preferencesOtherScreenValue)
+            ButtonOpenSecondScreen(
+                preferencesOtherScreenValue
+            )
         }
     }
 

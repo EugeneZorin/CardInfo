@@ -1,15 +1,15 @@
 package com.example.cardinfo.components.screens.basic
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cardinfo.MainActivity
+import com.example.cardinfo.SecondActivity
 import com.example.cardinfo.data.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.ConstantValue.OTHER_SCREEN_VALUES
-import com.example.cardinfo.data.ConstantValue.SAVE_DATA
 import com.example.cardinfo.functions.MainViewModel
 import com.example.cardinfo.functions.SavingStateMainScreen
 
@@ -21,11 +21,14 @@ fun ButtonSave(
     mainViewModel: MainViewModel = viewModel()
 ) {
 
+
     // Temporarily
     val saveInfoCard = preferencesHomeScreenValue.getString(HOME_SCREEN_VALUES, null)
 
     Button(onClick = {
-        preferencesOtherScreenValue.edit().putString(OTHER_SCREEN_VALUES, saveInfoCard).apply()
+        val count = preferencesOtherScreenValue.all.size
+        preferencesOtherScreenValue.edit().putString((count + 1).toString(), saveInfoCard).apply()
+
     }) {
         Text(text = "Сохранить")
     }
@@ -34,14 +37,20 @@ fun ButtonSave(
 @Composable
 fun ButtonOpenSecondScreen(preferencesOtherScreenValue: SharedPreferences) {
 
-    val mainActivity = MainActivity()
     val context = LocalContext.current
 
-
     Button(onClick = {
-        mainActivity.buttonOpenSaveDataCard(context, preferencesOtherScreenValue)
+        val intent = Intent(context, SecondActivity::class.java)
+        intent.putExtra("key1", preferencesOtherScreenValue.getString(OTHER_SCREEN_VALUES, null))
+        context.startActivity(intent)
+
+
 
     }) {
         Text(text = "Сохраненные номера")
     }
 }
+
+
+
+

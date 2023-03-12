@@ -22,10 +22,9 @@ class SecondActivity: ComponentActivity() {
 
         // Temporary solution (not a solution at all)
         preferencesAllSaveData = getSharedPreferences("TEST", Context.MODE_PRIVATE)
-        val intent = intent
         val value = intent.getStringExtra("key1")
-        val count = preferencesAllSaveData.all.size
-        preferencesAllSaveData.edit().putString((count + 1).toString(), value).apply()
+        preferencesAllSaveData.edit().putString(value, null).apply()
+
 
 
         setContent{
@@ -44,6 +43,8 @@ class SecondActivity: ComponentActivity() {
 
 @Composable
 fun SecondScreen(preferencesAllSaveData: SharedPreferences) {
+
+
 
     Box(modifier = Modifier
         .height(520.dp)
