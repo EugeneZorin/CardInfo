@@ -26,9 +26,4 @@ class MainViewModel : ViewModel() {
     val checkingFirstRequest = mutableStateOf(false)
 
 
-
-
-
-
-
 }
