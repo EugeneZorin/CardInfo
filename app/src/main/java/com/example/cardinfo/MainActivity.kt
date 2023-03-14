@@ -26,49 +26,32 @@ import com.example.cardinfo.functions.SavingStateMainScreen
 
 class MainActivity : ComponentActivity() {
 
-
     // Temporarily
     private lateinit var preferencesHomeScreenValue: SharedPreferences
-    private lateinit var preferencesOtherScreenValue: SharedPreferences
     private val savingStateMainScreen = SavingStateMainScreen()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         preferencesHomeScreenValue = getSharedPreferences(
             MAIN_DATA,
             Context.MODE_PRIVATE
         )
 
-        // Temporarily
-        preferencesOtherScreenValue = getSharedPreferences(
-            SAVE_DATA,
-            Context.MODE_PRIVATE
-        )
-
-
         setContent {
             MainScreen(
                 preferencesHomeScreenValue,
-                savingStateMainScreen,
-                preferencesOtherScreenValue
+                savingStateMainScreen
             )
         }
     }
 
 }
 
-
-
 @Composable
 fun MainScreen(
     preferencesHomeScreenValue: SharedPreferences,
     savingStateMainScreen: SavingStateMainScreen,
-    preferencesOtherScreenValue: SharedPreferences,
     mainViewModel: MainViewModel = viewModel()
 
 
@@ -79,8 +62,6 @@ fun MainScreen(
         preferencesHomeScreenValue,
         mainViewModel
     )
-
-
 
 
     Box (modifier = Modifier
@@ -123,19 +104,14 @@ fun MainScreen(
             .offset(x = 30.dp, y = 570.dp))
         {
             ButtonSave(
-                preferencesHomeScreenValue,
-                savingStateMainScreen,
-                preferencesOtherScreenValue
-
+                preferencesHomeScreenValue
             )
         }
 
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
-            ButtonOpenSecondScreen(
-                preferencesOtherScreenValue
-            )
+            ButtonOpenSecondScreen()
         }
     }
 

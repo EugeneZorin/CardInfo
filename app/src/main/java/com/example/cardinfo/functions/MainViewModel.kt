@@ -1,5 +1,6 @@
 package com.example.cardinfo.functions
 
+import android.content.SharedPreferences
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.example.cardinfo.data.CardModel
@@ -23,6 +24,9 @@ class MainViewModel : ViewModel() {
 
     //
     val checkingFirstRequest = mutableStateOf(false)
+
+
+
 
 
 

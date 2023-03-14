@@ -11,25 +11,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.components.screens.second.ButtonBack
 import com.example.cardinfo.components.screens.second.SavedCard
+import com.example.cardinfo.functions.MainViewModel
+import com.example.cardinfo.functions.SharedPreferencesViewModel
 
 class SecondActivity: ComponentActivity() {
-    private lateinit var preferencesAllSaveData: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Temporary solution (not a solution at all)
-        preferencesAllSaveData = getSharedPreferences("TEST", Context.MODE_PRIVATE)
-        val value = intent.getStringExtra("key1")
-        preferencesAllSaveData.edit().putString(value, null).apply()
-
-
-
         setContent{
 
-            SecondScreen(preferencesAllSaveData)
+            SecondScreen()
 
         }
     }
@@ -42,9 +38,9 @@ class SecondActivity: ComponentActivity() {
 }
 
 @Composable
-fun SecondScreen(preferencesAllSaveData: SharedPreferences) {
-
-
+fun SecondScreen(
+    sharedPreferencesViewModel: SharedPreferencesViewModel = viewModel()
+) {
 
     Box(modifier = Modifier
         .height(520.dp)
@@ -54,12 +50,11 @@ fun SecondScreen(preferencesAllSaveData: SharedPreferences) {
         LazyColumn(
            modifier = Modifier.fillMaxSize()
         ) {
-            items(preferencesAllSaveData.all.size) {
+            items(sharedPreferencesViewModel.sharedPreferencesCardsData.all.size) {
                 SavedCard()
             }
         }
     }
-
 
     Box(modifier = Modifier
         .offset(x = 145.dp, y = 570.dp)
