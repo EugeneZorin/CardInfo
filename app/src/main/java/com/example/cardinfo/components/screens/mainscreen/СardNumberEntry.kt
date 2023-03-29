@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.basic
+package com.example.cardinfo.components.screens.mainscreen
 
 import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
@@ -7,13 +7,13 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.ConstantValue.BRACKETS_WITHOUT_SPACES
-import com.example.cardinfo.data.ConstantValue.FOUR
-import com.example.cardinfo.data.ConstantValue.HOME_SCREEN_VALUES
-import com.example.cardinfo.data.ConstantValue.INPUT_VALUE
-import com.example.cardinfo.data.ConstantValue.REGEX
-import com.example.cardinfo.data.ConstantValue.SEVEN
-import com.example.cardinfo.data.ConstantValue.TREE
+import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
+import com.example.cardinfo.data.constant.ConstantValue.FOUR
+import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
+import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
+import com.example.cardinfo.data.constant.ConstantValue.REGEX
+import com.example.cardinfo.data.constant.ConstantValue.SEVEN
+import com.example.cardinfo.data.constant.ConstantValue.TREE
 import com.example.cardinfo.functions.EnteringValue
 import com.example.cardinfo.functions.SavingStateMainScreen
 import com.example.cardinfo.requests.RequestAdapter

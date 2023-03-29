@@ -5,27 +5,31 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
+import androidx.activity.viewModels
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cardinfo.components.screens.second.ButtonBack
-import com.example.cardinfo.components.screens.second.SavedCard
-import com.example.cardinfo.data.ConstantValue.ZERO
-import com.example.cardinfo.functions.SharedPreferencesViewModel
+import androidx.compose.ui.unit.sp
+import com.example.cardinfo.components.screens.secondscreen.ButtonBack
+import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 
 class SecondActivity: ComponentActivity() {
 
+    private val cardDetailsViewModel: CardDetailsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent{
-            SecondScreen()
+            SecondScreen(cardDetailsViewModel)
         }
     }
 
@@ -36,24 +40,34 @@ class SecondActivity: ComponentActivity() {
 }
 
 @Composable
-fun SecondScreen(
-    sharedPreferencesViewModel: SharedPreferencesViewModel = viewModel()
-) {
+fun SecondScreen(cardDetailsViewModel: CardDetailsViewModel) {
 
-    var numberRooms = ZERO
+    val inputInfoCard = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
 
-    Box(modifier = Modifier
-        .height(520.dp)
-        .offset(x = 0.dp, y = 15.dp)
-
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
     ) {
-        LazyColumn(
-           modifier = Modifier.fillMaxSize()
-        ) {
-
-            items(sharedPreferencesViewModel.sharedPreferencesCardsData.all.size) {
-                SavedCard(sharedPreferencesViewModel.sharedPreferencesNumberCard.all[numberRooms.toString()])
-                numberRooms++
+        item {
+            inputInfoCard.map { it ->
+                Card(
+                    modifier = Modifier
+                        .offset(x = 20.dp, y = 20.dp)
+                        .height(45.dp)
+                        .width(370.dp)
+                        .padding(top = 3.dp)
+                        .clickable {
+                            cardDetailsViewModel.deleteDetails(it)
+                        },
+                    backgroundColor = Color.Blue,
+                    elevation = 0.dp,
+                    shape = RoundedCornerShape(5.dp))
+                {
+                    Text(
+                        text = it.DetailsCard,
+                        color = Color.White,
+                        style = TextStyle(fontSize = 15.sp)
+                    )
+                }
             }
         }
     }

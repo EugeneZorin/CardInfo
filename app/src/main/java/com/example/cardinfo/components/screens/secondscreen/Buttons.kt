@@ -1,7 +1,6 @@
-package com.example.cardinfo.components.screens.second
+package com.example.cardinfo.components.screens.secondscreen
 
 
-import android.content.SharedPreferences
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

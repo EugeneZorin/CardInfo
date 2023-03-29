@@ -3,9 +3,10 @@ package com.example.cardinfo.functions
 import android.content.SharedPreferences
 import androidx.compose.runtime.MutableState
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.ConstantValue
-import com.example.cardinfo.data.ConstantValue.BRACKETS_WITHOUT_SPACES
-import com.example.cardinfo.data.ConstantValue.HOME_SCREEN_VALUES
+import com.example.cardinfo.data.constant.ConstantValue
+import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
+import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
+import com.example.cardinfo.viewmodels.MainViewModel
 import com.google.gson.GsonBuilder
 
 class SavingStateMainScreen {
@@ -37,8 +38,5 @@ class SavingStateMainScreen {
         }
     }
 
-    fun savingCardsValues(preferencesHomeScreenValue: SharedPreferences) {
-
-    }
 
 }

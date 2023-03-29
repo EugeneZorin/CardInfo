@@ -2,9 +2,9 @@ package com.example.cardinfo.requests
 
 import android.content.SharedPreferences
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.ConstantValue.ERROR_FOUR_HUNDRED
-import com.example.cardinfo.data.ConstantValue.HOME_SCREEN_VALUES
-import com.example.cardinfo.data.ConstantValue.INPUT_VALUE
+import com.example.cardinfo.data.constant.ConstantValue.ERROR_FOUR_HUNDRED
+import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
+import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
 import com.google.gson.GsonBuilder
 import okhttp3.Response
 

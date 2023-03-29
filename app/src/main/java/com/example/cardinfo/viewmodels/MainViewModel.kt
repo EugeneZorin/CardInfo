@@ -1,11 +1,10 @@
-package com.example.cardinfo.functions
+package com.example.cardinfo.viewmodels
 
-import android.content.SharedPreferences
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.ConstantValue.BRACKETS_WITHOUT_SPACES
-import com.example.cardinfo.data.ConstantValue.FOUR
+import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
+import com.example.cardinfo.data.constant.ConstantValue.FOUR
 import okhttp3.Response
 
 class MainViewModel : ViewModel() {
