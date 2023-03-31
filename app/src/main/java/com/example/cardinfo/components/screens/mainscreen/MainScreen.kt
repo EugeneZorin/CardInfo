@@ -5,21 +5,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.cardinfo.components.screens.mainscreen.components.*
 import com.example.cardinfo.functions.SavingStateMainScreen
 import com.example.cardinfo.viewmodels.MainViewModel
-import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 
 @Composable
 fun MainScreen(
     preferencesHomeScreenValue: SharedPreferences,
     savingStateMainScreen: SavingStateMainScreen,
+    navButtonController: NavHostController,
     mainViewModel: MainViewModel = viewModel(),
-    cardDetailsViewModel: CardDetailsViewModel
 
 ) {
 
@@ -61,6 +63,7 @@ fun MainScreen(
 
     }
 
+
     // Buttons
     Row(modifier = Modifier
         .offset(x = 0.dp, y = 0.dp)
@@ -69,16 +72,17 @@ fun MainScreen(
         Box(modifier = Modifier
             .offset(x = 30.dp, y = 570.dp))
         {
-            ButtonSave(
-                preferencesHomeScreenValue,
-                cardDetailsViewModel
-            )
+            ButtonSave(preferencesHomeScreenValue)
         }
 
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
-            ButtonOpenSecondScreen()
+            Button(onClick = {
+                navButtonController.navigate("saveScreen")
+            }){
+                Text(text = "Сохраненные номера")
+            }
         }
     }
 
