@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.mainscreen
+package com.example.cardinfo.components.screens.mainscreen.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
@@ -9,9 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.cardinfo.R
-import com.example.cardinfo.components.QuestionsMarksBrand
-import com.example.cardinfo.components.QuestionsMarksLength
-import com.example.cardinfo.components.QuestionsMarksScheme
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.ui.theme.Silver
 import java.util.*

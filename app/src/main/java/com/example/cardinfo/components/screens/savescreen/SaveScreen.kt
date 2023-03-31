@@ -1,11 +1,5 @@
-package com.example.cardinfo
+package com.example.cardinfo.components.screens.savescreen
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,28 +13,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cardinfo.components.screens.secondscreen.ButtonBack
+import com.example.cardinfo.components.screens.savescreen.components.ButtonBack
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 
-class SecondActivity: ComponentActivity() {
-
-    private val cardDetailsViewModel: CardDetailsViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent{
-            SecondScreen(cardDetailsViewModel)
-        }
-    }
-
-    fun openMainActivity(context: Context){
-        intent = Intent(context, MainActivity::class.java)
-        context.startActivity(intent)
-    }
-}
-
 @Composable
-fun SecondScreen(cardDetailsViewModel: CardDetailsViewModel) {
+fun SaveScreen(cardDetailsViewModel: CardDetailsViewModel) {
 
     val inputInfoCard = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
 
@@ -56,11 +33,12 @@ fun SecondScreen(cardDetailsViewModel: CardDetailsViewModel) {
                         .width(370.dp)
                         .padding(top = 3.dp)
                         .clickable {
-                            cardDetailsViewModel.deleteDetails(it)
+                            /*cardDetailsViewModel.deleteDetails(it)*/
                         },
                     backgroundColor = Color.Blue,
                     elevation = 0.dp,
-                    shape = RoundedCornerShape(5.dp))
+                    shape = RoundedCornerShape(5.dp)
+                )
                 {
                     Text(
                         text = it.DetailsCard,
@@ -79,4 +57,3 @@ fun SecondScreen(cardDetailsViewModel: CardDetailsViewModel) {
         ButtonBack()
     }
 }
-

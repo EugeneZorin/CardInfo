@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.mainscreen
+package com.example.cardinfo.components.screens.mainscreen.components
 
 import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
