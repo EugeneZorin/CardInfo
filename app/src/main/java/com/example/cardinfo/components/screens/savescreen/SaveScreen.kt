@@ -13,11 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.cardinfo.components.screens.savescreen.components.ButtonBack
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 
 @Composable
-fun SaveScreen(cardDetailsViewModel: CardDetailsViewModel) {
+fun SaveScreen(
+    cardDetailsViewModel: CardDetailsViewModel = viewModel(),
+) {
 
     val inputInfoCard = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
 

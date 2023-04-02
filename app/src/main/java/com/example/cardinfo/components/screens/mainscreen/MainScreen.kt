@@ -20,10 +20,11 @@ import com.example.cardinfo.viewmodels.MainViewModel
 fun MainScreen(
     preferencesHomeScreenValue: SharedPreferences,
     savingStateMainScreen: SavingStateMainScreen,
-    navButtonController: NavHostController,
+    navController: NavHostController,
     mainViewModel: MainViewModel = viewModel(),
 
-) {
+
+    ) {
 
     // Write mapped data to storage
     savingStateMainScreen.recordingDisplayedData(
@@ -72,14 +73,15 @@ fun MainScreen(
         Box(modifier = Modifier
             .offset(x = 30.dp, y = 570.dp))
         {
-            ButtonSave(preferencesHomeScreenValue)
+            Button(onClick = { navController.navigate("SaveScreen") }) {
+            }
         }
 
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
             Button(onClick = {
-                navButtonController.navigate("saveScreen")
+
             }){
                 Text(text = "Сохраненные номера")
             }

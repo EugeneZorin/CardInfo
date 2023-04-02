@@ -5,8 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.cardinfo.components.screens.mainscreen.MainScreen
-import com.example.cardinfo.components.screens.mainscreen.components.NavButton
+import com.example.cardinfo.components.screens.mainscreen.MainNavHost
 import com.example.cardinfo.data.constant.ConstantValue.MAIN_DATA
 import com.example.cardinfo.functions.SavingStateMainScreen
 
@@ -26,10 +25,13 @@ class MainActivity : ComponentActivity() {
         )
 
         setContent {
-            NavButton(
+
+            MainNavHost(
                 preferencesHomeScreenValue,
                 savingStateMainScreen
             )
+
+
         }
     }
 
