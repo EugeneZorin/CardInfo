@@ -1,6 +1,5 @@
 package com.example.cardinfo.components.screens.mainscreen
 
-import android.content.SharedPreferences
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,20 +14,20 @@ import androidx.navigation.NavHostController
 import com.example.cardinfo.components.screens.mainscreen.components.*
 import com.example.cardinfo.functions.SavingStateMainScreen
 import com.example.cardinfo.viewmodels.MainViewModel
+import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
 
 @Composable
 fun MainScreen(
-    preferencesHomeScreenValue: SharedPreferences,
-    savingStateMainScreen: SavingStateMainScreen,
+    savingStateMainScreen: SavingStateMainScreen = SavingStateMainScreen(),
     navController: NavHostController,
     mainViewModel: MainViewModel = viewModel(),
+    preferencesHomeScreenData: ViewModelSharedPreferences = viewModel()
 
-
-    ) {
+) {
 
     // Write mapped data to storage
     savingStateMainScreen.recordingDisplayedData(
-        preferencesHomeScreenValue,
+        preferencesHomeScreenData,
         mainViewModel
     )
 
@@ -43,7 +42,7 @@ fun MainScreen(
             cardNumber = mainViewModel.cardNumber,
             checkingFirstRequest = mainViewModel.checkingFirstRequest,
             mainViewModel.responseSaveData,
-            preferencesHomeScreenValue
+            preferencesHomeScreenData
         )
 
     }
@@ -74,17 +73,14 @@ fun MainScreen(
             .offset(x = 30.dp, y = 570.dp))
         {
             Button(onClick = { navController.navigate("SaveScreen") }) {
+                Text(text = "Сохраненные номера")
             }
         }
 
         Box(modifier = Modifier
             .offset(x = 70.dp, y = 570.dp))
         {
-            Button(onClick = {
-
-            }){
-                Text(text = "Сохраненные номера")
-            }
+            ButtonSave(preferencesHomeScreenData)
         }
     }
 

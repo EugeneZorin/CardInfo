@@ -9,19 +9,15 @@ import com.example.cardinfo.components.screens.savescreen.SaveScreen
 import com.example.cardinfo.functions.SavingStateMainScreen
 
 @Composable
-fun MainNavHost(
-    preferencesHomeScreenValue: SharedPreferences,
-    savingStateMainScreen: SavingStateMainScreen
-) {
+fun MainNavHost() {
 
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "MainScreen" ){
         composable("MainScreen") {
             MainScreen(
-                preferencesHomeScreenValue = preferencesHomeScreenValue,
-                savingStateMainScreen = savingStateMainScreen,
-                navController = navController)
+                navController = navController
+            )
         }
 
         composable("SaveScreen") {

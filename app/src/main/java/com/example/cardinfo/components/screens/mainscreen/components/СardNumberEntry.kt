@@ -1,13 +1,11 @@
 package com.example.cardinfo.components.screens.mainscreen.components
 
-import android.content.SharedPreferences
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
 import com.example.cardinfo.data.constant.ConstantValue.FOUR
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
@@ -18,6 +16,7 @@ import com.example.cardinfo.functions.EnteringValue
 import com.example.cardinfo.functions.SavingStateMainScreen
 import com.example.cardinfo.requests.RequestAdapter
 import com.example.cardinfo.requests.RequestProcessing
+import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,24 +31,22 @@ fun CardNumberEntry(
     cardNumber: String,
     checkingFirstRequest: MutableState<Boolean>,
     responseSaveData: MutableState<List<Response>>,
-    preferencesHomeScreenValue: SharedPreferences,
-    ) {
+    preferencesHomeScreenValue: ViewModelSharedPreferences,
+) {
 
     val requestProcessing = RequestProcessing()
     val requestAdapter = RequestAdapter()
     val savingStateMainScreen = SavingStateMainScreen()
 
-    val enteringValue = EnteringValue()
+    /*val enteringValue = EnteringValue()*/
+
     val pattern = Regex(REGEX)
 
     var cardNumberRemember by rememberSaveable() { mutableStateOf(cardNumber) }
 
-    val key = preferencesHomeScreenValue.getString(
-        INPUT_VALUE,
-        BRACKETS_WITHOUT_SPACES
-    )
+    val key = preferencesHomeScreenValue.getData(INPUT_VALUE)
 
-    if (key != BRACKETS_WITHOUT_SPACES){
+    if (key != null){
         cardNumberRemember = key.toString()
     }
 
@@ -70,13 +67,13 @@ fun CardNumberEntry(
             * Delete old values from CardModel
             * */
 
-            if (cardNumberRemember.length <= TREE || cardNumberRemember.length <= SEVEN) { if(checkingFirstRequest.value){
+            if (cardNumberRemember.length <= TREE || cardNumberRemember.length <= SEVEN) {
+                if(checkingFirstRequest.value){
                     characterLimitSubmittingRequest.value = FOUR
                     cardInfoCardModel.value = listOf(CardModel())
                     checkingFirstRequest.value = false
-                    preferencesHomeScreenValue.edit().remove(INPUT_VALUE).apply()
-                    preferencesHomeScreenValue.edit().remove(HOME_SCREEN_VALUES).apply()
-
+                    preferencesHomeScreenValue.deleteData(INPUT_VALUE)
+                    preferencesHomeScreenValue.deleteData(HOME_SCREEN_VALUES)
                 }
             }
 
@@ -84,7 +81,7 @@ fun CardNumberEntry(
                 if (it.isEmpty() || it.matches(pattern)) {
 
                     cardNumberRemember = it
-                    preferencesHomeScreenValue.edit().putString(INPUT_VALUE, it).apply()
+                    preferencesHomeScreenValue.saveData(INPUT_VALUE, it)
 
                     // Sends the url to RequestProcessing if the entered characters are greater than or equal to 4
                     // 4 is added to the number of characters for the next sending
@@ -106,8 +103,8 @@ fun CardNumberEntry(
             }
         },
 
-        // Filter for entering the card number with a space every 4 digits
-        visualTransformation = { enteringValue.creditCardFilter(it) },
+      /*  // Filter for entering the card number with a space every 4 digits
+        visualTransformation = { enteringValue.creditCardFilter(it) },*/
 
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = White

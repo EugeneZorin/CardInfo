@@ -1,10 +1,10 @@
 package com.example.cardinfo.requests
 
-import android.content.SharedPreferences
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.data.constant.ConstantValue.ERROR_FOUR_HUNDRED
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
+import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
 import com.google.gson.GsonBuilder
 import okhttp3.Response
 
@@ -12,7 +12,7 @@ class RequestAdapter {
 
     fun requestAdapter(
         responseSaveData: List<Response>,
-        preferencesHomeScreenValue: SharedPreferences,
+        preferencesHomeScreenValue: ViewModelSharedPreferences,
         cardNumberRemember: String
     ): List<CardModel> {
         val gson = GsonBuilder().create()
@@ -22,8 +22,8 @@ class RequestAdapter {
         val responseCode = responseSaveData[0].code
 
         if (responseCode < ERROR_FOUR_HUNDRED){
-            preferencesHomeScreenValue.edit().putString(HOME_SCREEN_VALUES, response).apply()
-            preferencesHomeScreenValue.edit().putString(INPUT_VALUE, cardNumberRemember).apply()
+            preferencesHomeScreenValue.saveData(HOME_SCREEN_VALUES, response)
+            preferencesHomeScreenValue.saveData(INPUT_VALUE, cardNumberRemember)
 
         }
 
