@@ -1,25 +1,26 @@
-package com.example.cardinfo.requests
+package com.example.cardinfo.requests.okhttp
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.data.constant.ConstantValue.ERROR_FOUR_HUNDRED
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
+import com.example.cardinfo.viewmodels.MainViewModel
 import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
 import com.google.gson.GsonBuilder
-import okhttp3.Response
 
 class RequestAdapter {
 
     fun requestAdapter(
-        responseSaveData: List<Response>,
-        preferencesHomeScreenValue: ViewModelSharedPreferences,
-        cardNumberRemember: String
+        mainViewModel: MainViewModel,
+        cardNumberRemember: String,
+        preferencesHomeScreenValue: ViewModelSharedPreferences
     ): List<CardModel> {
+
         val gson = GsonBuilder().create()
 
-
-        val response = responseSaveData[0].body.string()
-        val responseCode = responseSaveData[0].code
+        val response = mainViewModel.responseSaveData.value[0].body.string()
+        val responseCode = mainViewModel.responseSaveData.value[0].code
 
         if (responseCode < ERROR_FOUR_HUNDRED){
             preferencesHomeScreenValue.saveData(HOME_SCREEN_VALUES, response)

@@ -1,4 +1,4 @@
-package com.example.cardinfo.requests
+package com.example.cardinfo.requests.okhttp
 
 import okhttp3.*
 

@@ -36,15 +36,7 @@ fun MainScreen(
         .offset(x = 50.dp, y = 20.dp)
         .fillMaxSize())
     {
-        CardNumberEntry(
-            mainViewModel.infoCardModel,
-            mainViewModel.characterLimitSubmittingRequest,
-            cardNumber = mainViewModel.cardNumber,
-            checkingFirstRequest = mainViewModel.checkingFirstRequest,
-            mainViewModel.responseSaveData,
-            preferencesHomeScreenData
-        )
-
+        CardNumberEntry()
     }
 
     // Colum with DataCard

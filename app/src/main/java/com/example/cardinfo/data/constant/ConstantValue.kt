@@ -13,10 +13,12 @@ object ConstantValue {
     const val REGEX = "^\\d+\$"
 
     // Numbers
-    const val ZERO = 0
-    const val TREE = 3
+    const val THREE = 3
     const val FOUR = 4
-    const val SEVEN = 7
+    const val EIGHT = 8
+    const val TWELVE = 12
+    const val SIXTEEN = 16
+
 
     // Error
     const val ERROR_FOUR_HUNDRED = 400
