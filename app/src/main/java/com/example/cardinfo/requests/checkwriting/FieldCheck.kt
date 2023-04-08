@@ -5,7 +5,7 @@ import com.example.cardinfo.data.constant.ConstantValue
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
 import com.example.cardinfo.viewmodels.MainViewModel
-import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
+import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
 
 class FieldCheck {
 
@@ -15,8 +15,6 @@ class FieldCheck {
         mainViewModel: MainViewModel,
         preferencesHomeScreenValue: ViewModelSharedPreferences
     ) {
-
-
 
         preferencesHomeScreenValue.saveData(INPUT_VALUE, cardNumberRemember)
 
@@ -46,5 +44,4 @@ class FieldCheck {
         preferencesHomeScreenValue.deleteData(HOME_SCREEN_VALUES)
 
     }
-
 }

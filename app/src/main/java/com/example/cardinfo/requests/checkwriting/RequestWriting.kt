@@ -1,12 +1,13 @@
 package com.example.cardinfo.requests.checkwriting
 
-import androidx.lifecycle.viewModelScope
-import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
 import com.example.cardinfo.requests.okhttp.RequestAdapter
 import com.example.cardinfo.requests.okhttp.RequestProcessing
 import com.example.cardinfo.viewmodels.MainViewModel
-import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
-import kotlinx.coroutines.*
+import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class RequestWriting(){
 
@@ -19,7 +20,6 @@ class RequestWriting(){
         mainViewModel: MainViewModel,
         preferencesHomeScreenValue: ViewModelSharedPreferences
     ) {
-
         // A request is sent to the server to receive information about the card
         requestScope.launch {
             mainViewModel.responseSaveData.value = listOf(requestProcessing.getData(cardNumberRemember))
@@ -31,8 +31,6 @@ class RequestWriting(){
             )
         }
     }
-
-
     fun canselRequest(){
         requestScope.cancel()
     }

@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.mainscreen.components
+package com.example.cardinfo.screencomponents.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -14,7 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.functions.EnteringValue
 import com.example.cardinfo.requests.checkwriting.FieldCheck
 import com.example.cardinfo.viewmodels.MainViewModel
-import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
+import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
 
 // fields for entering the card number
 @Composable

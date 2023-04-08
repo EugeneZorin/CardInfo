@@ -4,11 +4,9 @@ plugins {
     id 'kotlin-kapt'
 }
 
-
 android {
     namespace 'com.example.cardinfo'
     compileSdk 33
-
 
     defaultConfig {
         applicationId "com.example.cardinfo"

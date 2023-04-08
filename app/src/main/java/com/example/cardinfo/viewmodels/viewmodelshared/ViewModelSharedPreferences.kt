@@ -1,4 +1,4 @@
-package com.example.cardinfo.viewmodelshared
+package com.example.cardinfo.viewmodels.viewmodelshared
 
 import android.app.Application
 import android.content.Context

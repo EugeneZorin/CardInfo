@@ -23,5 +23,10 @@ object ConstantValue {
     // Error
     const val ERROR_FOUR_HUNDRED = 400
 
+    // Screen
+    const val MAIN_SCREEN = "MainScreen"
+    const val SAVE_SCREEN = "SaveScreen"
+    const val INFORMATION_SAVED_SCREEN = "InformationSavedScreen"
+
 
 }

@@ -6,7 +6,7 @@ import com.example.cardinfo.data.constant.ConstantValue.ERROR_FOUR_HUNDRED
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
 import com.example.cardinfo.viewmodels.MainViewModel
-import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
+import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
 import com.google.gson.GsonBuilder
 
 class RequestAdapter {
