@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        compose_ui_version = '1.4.0'
+        compose_ui_version = '1.4.1'
         ext.okhttp_version = "5.0.0-alpha.10"
         ext.gson_version = "2.9.0"
         lifecycle_version = "2.5.1"

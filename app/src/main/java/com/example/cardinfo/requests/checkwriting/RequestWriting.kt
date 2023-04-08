@@ -20,8 +20,6 @@ class RequestWriting(){
         preferencesHomeScreenValue: ViewModelSharedPreferences
     ) {
 
-        preferencesHomeScreenValue.saveData(INPUT_VALUE, cardNumberRemember)
-
         // A request is sent to the server to receive information about the card
         requestScope.launch {
             mainViewModel.responseSaveData.value = listOf(requestProcessing.getData(cardNumberRemember))
@@ -33,8 +31,6 @@ class RequestWriting(){
             )
         }
     }
-
-
 
 
     fun canselRequest(){

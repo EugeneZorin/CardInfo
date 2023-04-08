@@ -22,7 +22,6 @@ fun MainScreen(
     navController: NavHostController,
     mainViewModel: MainViewModel = viewModel(),
     preferencesHomeScreenData: ViewModelSharedPreferences = viewModel()
-
 ) {
 
     // Write mapped data to storage
@@ -30,7 +29,6 @@ fun MainScreen(
         preferencesHomeScreenData,
         mainViewModel
     )
-
 
     Box (modifier = Modifier
         .offset(x = 50.dp, y = 20.dp)
@@ -54,7 +52,6 @@ fun MainScreen(
             CardDataOutputTwoColum(mainViewModel.infoCardModel) }
 
     }
-
 
     // Buttons
     Row(modifier = Modifier

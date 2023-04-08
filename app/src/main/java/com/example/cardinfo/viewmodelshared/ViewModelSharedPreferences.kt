@@ -3,7 +3,9 @@ package com.example.cardinfo.viewmodelshared
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
+import com.example.cardinfo.data.constant.ConstantValue
 import com.example.cardinfo.data.constant.ConstantValue.MAIN_DATA
+import com.example.cardinfo.viewmodels.MainViewModel
 
 class ViewModelSharedPreferences(application: Application): AndroidViewModel(application) {
 
@@ -23,4 +25,5 @@ class ViewModelSharedPreferences(application: Application): AndroidViewModel(app
     fun getData(key: String): String?{
         return preferencesHomeScreenData.getString(key, null)
     }
+
 }

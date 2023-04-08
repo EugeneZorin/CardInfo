@@ -16,6 +16,10 @@ class FieldCheck {
         preferencesHomeScreenValue: ViewModelSharedPreferences
     ) {
 
+
+
+        preferencesHomeScreenValue.saveData(INPUT_VALUE, cardNumberRemember)
+
         // If the length of the entered value corresponds to one of the numbers,
         // then a new request is sent to get basic or additional data about the map
 
