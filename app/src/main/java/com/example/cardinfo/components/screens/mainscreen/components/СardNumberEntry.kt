@@ -11,7 +11,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
 import com.example.cardinfo.functions.EnteringValue
 import com.example.cardinfo.requests.checkwriting.FieldCheck
 import com.example.cardinfo.viewmodels.MainViewModel
@@ -25,14 +24,8 @@ fun CardNumberEntry(
 ) {
 
     var cardNumberRemember by rememberSaveable() { mutableStateOf("") }
-
-
-
     val fieldCheck = FieldCheck()
     val enteringValue = EnteringValue()
-
-
-
 
     OutlinedTextField(
         value = cardNumberRemember,
@@ -40,7 +33,8 @@ fun CardNumberEntry(
 
             cardNumberRemember = it
 
-           /* fieldCheck.fieldCheck(cardNumberRemember, mainViewModel, preferencesHomeScreenValue)*/
+            fieldCheck.fieldCheck(cardNumberRemember, mainViewModel, preferencesHomeScreenValue)
+
         },
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
 
