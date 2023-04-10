@@ -1,7 +1,6 @@
 package com.example.cardinfo.screencomponents.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,10 +17,7 @@ import java.util.*
 @Composable
 fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
 
-
     Column{
-
-
 
         Text(
             text = stringResource(id = R.string.type),
@@ -45,8 +41,6 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
         }
 
         QuestionsMarksType(item, 30, 10)
-
-
 
 
         Text(
@@ -81,7 +75,8 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                     text = "$it ${item.value[0].country?.name}",
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
-                    modifier = Modifier.offset(x = 30.dp, y = 50.dp)
+                    modifier = Modifier
+                        .offset(x = 30.dp, y = 50.dp)
                 )
             }
         }

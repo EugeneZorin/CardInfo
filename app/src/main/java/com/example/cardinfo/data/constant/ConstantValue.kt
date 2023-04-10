@@ -13,6 +13,7 @@ object ConstantValue {
     const val REGEX = "^\\d+\$"
 
     // Numbers
+    const val ONE = 1
     const val THREE = 3
     const val FOUR = 4
     const val EIGHT = 8
