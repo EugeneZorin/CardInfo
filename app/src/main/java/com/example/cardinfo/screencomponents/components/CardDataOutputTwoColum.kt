@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.mainscreen.components
+package com.example.cardinfo.screencomponents.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset

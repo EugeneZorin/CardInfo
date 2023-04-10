@@ -18,4 +18,6 @@ class MainViewModel : ViewModel() {
     // Saves the entered json values from the server
     val responseSaveData = mutableStateOf(listOf<Response>())
 
+    val informationSavedScreen = mutableStateOf(BRACKETS_WITHOUT_SPACES)
+
 }

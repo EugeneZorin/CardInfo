@@ -1,9 +1,10 @@
-package com.example.cardinfo.components.screens.savescreen
+package com.example.cardinfo.screencomponents.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,12 +16,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.cardinfo.components.screens.savescreen.components.ButtonBack
+import com.example.cardinfo.data.constant.ConstantValue.INFORMATION_SAVED_SCREEN
+import com.example.cardinfo.data.constant.ConstantValue.MAIN_SCREEN
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 
 @Composable
 fun SaveScreen(
     cardDetailsViewModel: CardDetailsViewModel = viewModel(),
+    navController: NavHostController,
 ) {
 
     val inputInfoCard = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
@@ -29,7 +32,7 @@ fun SaveScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         item {
-            inputInfoCard.map { it ->
+            inputInfoCard.map {
                 Card(
                     modifier = Modifier
                         .offset(x = 20.dp, y = 20.dp)
@@ -37,7 +40,7 @@ fun SaveScreen(
                         .width(370.dp)
                         .padding(top = 3.dp)
                         .clickable {
-                            /*cardDetailsViewModel.deleteDetails(it)*/
+                            navController.navigate("$INFORMATION_SAVED_SCREEN/${it.id}")
                         },
                     backgroundColor = Color.Blue,
                     elevation = 0.dp,
@@ -54,12 +57,16 @@ fun SaveScreen(
         }
     }
 
-
-
     Box(modifier = Modifier
-        .offset(x = 145.dp, y = 570.dp)
+        .offset(x = 150.dp, y = 570.dp)
         .fillMaxSize())
     {
-        ButtonBack()
+        Button(onClick = { navController.navigate(MAIN_SCREEN) }) {
+            Text(text = "Назад")
+        }
     }
 }
+
+
+
+

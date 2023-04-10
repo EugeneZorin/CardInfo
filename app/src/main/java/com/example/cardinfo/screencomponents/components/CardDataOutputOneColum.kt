@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.mainscreen.components
+package com.example.cardinfo.screencomponents.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
@@ -13,12 +13,9 @@ import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.ui.theme.Silver
 import java.util.*
 
-
 // General information about the card for the user
 @Composable
 fun CardDataOutputOneColum(item: MutableState<List<CardModel>>) {
-
-
 
     Column {
         Text(

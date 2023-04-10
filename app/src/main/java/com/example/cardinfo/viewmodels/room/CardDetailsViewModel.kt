@@ -22,4 +22,5 @@ class CardDetailsViewModel(application: Application): AndroidViewModel(applicati
     fun deleteDetails(cardNumberDetails: CardNumberDetails) = viewModelScope.launch {
         cardDetailsDao.deleteCard(cardNumberDetails)
     }
+
 }

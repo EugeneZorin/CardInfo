@@ -1,4 +1,4 @@
-package com.example.cardinfo.components.screens.mainscreen.components
+package com.example.cardinfo.screencomponents.components
 
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -8,8 +8,7 @@ import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
 import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
 import com.example.cardinfo.room.CardNumberDetails
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
-import com.example.cardinfo.viewmodelshared.ViewModelSharedPreferences
-
+import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
 
 @Composable
 fun ButtonSave(
