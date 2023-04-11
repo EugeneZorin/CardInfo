@@ -28,6 +28,7 @@ fun CardNumberEntry(
     val enteringValue = EnteringValue()
 
     OutlinedTextField(
+
         value = cardNumberRemember,
         onValueChange = {
 
@@ -36,8 +37,8 @@ fun CardNumberEntry(
             fieldCheck.fieldCheck(cardNumberRemember, mainViewModel, preferencesHomeScreenValue)
 
         },
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
 
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
 
         // Filter for entering the card number with a space every 4 digits
         visualTransformation = { enteringValue.filter(it) },
