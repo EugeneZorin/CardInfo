@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
 import com.example.cardinfo.functions.EnteringValue
 import com.example.cardinfo.requests.checkwriting.FieldCheck
 import com.example.cardinfo.viewmodels.MainViewModel
@@ -23,7 +24,7 @@ fun CardNumberEntry(
     preferencesHomeScreenValue: ViewModelSharedPreferences = viewModel()
 ) {
 
-    var cardNumberRemember by rememberSaveable() { mutableStateOf("") }
+    var cardNumberRemember by rememberSaveable() { mutableStateOf(BRACKETS_WITHOUT_SPACES) }
     val fieldCheck = FieldCheck()
     val enteringValue = EnteringValue()
 

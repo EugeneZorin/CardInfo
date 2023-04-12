@@ -35,15 +35,15 @@ fun MainScreen(
 
     // Colum with DataCard
     Row(modifier = Modifier
-        .offset(x = 30.dp, y = 50.dp)) {
+        .offset(x = 20.dp, y = 50.dp)) {
 
         Box (modifier = Modifier
-            .offset(x = 5.dp, y = 50.dp))
+            .offset(x = 30.dp, y = 50.dp))
         {
             CardDataOutputOneColum(mainViewModel.infoCardModel) }
 
         Box (modifier = Modifier
-            .offset(x = 95.dp, y = 50.dp))
+            .offset(x = 100.dp, y = 50.dp))
         {
             CardDataOutputTwoColum(mainViewModel.infoCardModel) }
     }

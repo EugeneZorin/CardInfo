@@ -19,7 +19,11 @@ fun CardDataOutputTwoColum(
     item: MutableState<List<CardModel>>
 ){
 
-    Column {
+    Column(
+        modifier = Modifier
+            .height(290.dp)
+            .width(115.dp)
+    ) {
 
         Text(
             text = stringResource(id = R.string.type),
@@ -92,7 +96,7 @@ fun CardDataOutputTwoColum(
                     text = "(latitude: $it}, longitude: ${item.value[0].country?.longitude})",
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
-                    fontSize = 9.sp,
+                    fontSize = 8.sp,
                     modifier = Modifier.offset(x = 30.dp, y = 50.dp)
 
                 )
@@ -119,7 +123,8 @@ fun CardDataOutputTwoColum(
                     },
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
-                    modifier = Modifier.offset(x = 30.dp, y = 75.dp)
+                    modifier = Modifier.offset(x = 30.dp, y = 75.dp),
+                    fontSize = 10.sp
                 )
             }
         }
@@ -133,7 +138,8 @@ fun CardDataOutputTwoColum(
                     text = "${item.value[0].bank?.url}",
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
-                    modifier = Modifier.offset(x = 30.dp, y = 75.dp)
+                    modifier = Modifier.offset(x = 30.dp, y = 75.dp),
+                    fontSize = 10.sp
                 )
             }
         }
@@ -147,7 +153,8 @@ fun CardDataOutputTwoColum(
                     text = "+${item.value[0].bank?.phone}",
                     style = MaterialTheme.typography.subtitle2,
                     color = Silver,
-                    modifier = Modifier.offset(x = 30.dp, y = 75.dp)
+                    modifier = Modifier.offset(x = 30.dp, y = 75.dp),
+                    fontSize = 10.sp
                 )
             }
         }
