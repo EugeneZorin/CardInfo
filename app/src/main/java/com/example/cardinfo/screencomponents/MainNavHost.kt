@@ -38,7 +38,7 @@ fun MainNavHost() {
 
             val counter = navBackStack.arguments?.getString("$id")
 
-            InformationSavedScreen(counter)
+            InformationSavedScreen(counter, navController)
         }
 
     }

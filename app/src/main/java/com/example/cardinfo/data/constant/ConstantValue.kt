@@ -10,6 +10,7 @@ object ConstantValue {
 
     // Other Constant
     const val BRACKETS_WITHOUT_SPACES = ""
+    const val WHITESPACE = " "
     const val REGEX = "^\\d+\$"
 
     // Numbers
@@ -17,7 +18,9 @@ object ConstantValue {
     const val THREE = 3
     const val FOUR = 4
     const val EIGHT = 8
+    const val NINE = 9
     const val TWELVE = 12
+    const val FOURTEEN = 14
     const val SIXTEEN = 16
 
 
