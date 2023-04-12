@@ -18,6 +18,8 @@ import java.util.*
 fun CardDataOutputOneColum(item: MutableState<List<CardModel>>) {
 
     Column {
+
+
         Text(
             text = stringResource(id = R.string.scheme_network),
             style = typography.subtitle2,
@@ -35,7 +37,10 @@ fun CardDataOutputOneColum(item: MutableState<List<CardModel>>) {
                 )
             }
         }
-        QuestionsMarksScheme(item, 0, 10)
+
+        if(item.value.isEmpty() || item.value[0].scheme == null)
+            QuestionMarks(xParameter = 0, yParameter = 10)
+
 
         Text(
             text = stringResource(id = R.string.brand),
@@ -55,7 +60,9 @@ fun CardDataOutputOneColum(item: MutableState<List<CardModel>>) {
                 )
             }
         }
-        QuestionsMarksBrand(item, 0, 28)
+
+        if(item.value.isEmpty() || item.value[0].brand == null)
+            QuestionMarks(xParameter = 0, yParameter = 28)
 
 
         Text(
@@ -85,7 +92,10 @@ fun CardDataOutputOneColum(item: MutableState<List<CardModel>>) {
                 )
             }
         }
-        QuestionsMarksLength(item, 0, 50)
+
+        if(item.value.isEmpty() || item.value[0].number?.length == null)
+            QuestionMarks(xParameter = 0, yParameter = 50)
+
 
         Text(
             text = stringResource(id = R.string.luhn),
@@ -106,6 +116,9 @@ fun CardDataOutputOneColum(item: MutableState<List<CardModel>>) {
                 )
             }
         }
-        QuestionsMarksLength(item, 0, 77)
+
+        if(item.value.isEmpty() || item.value[0].number?.length == null)
+            QuestionMarks(xParameter = 0, yParameter = 77)
+
     }
 }

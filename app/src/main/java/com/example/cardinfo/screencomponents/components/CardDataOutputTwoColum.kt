@@ -15,9 +15,11 @@ import com.example.cardinfo.ui.theme.Silver
 import java.util.*
 
 @Composable
-fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
+fun CardDataOutputTwoColum(
+    item: MutableState<List<CardModel>>
+){
 
-    Column{
+    Column {
 
         Text(
             text = stringResource(id = R.string.type),
@@ -27,9 +29,7 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
         )
 
         if (item.value.isNotEmpty()) {
-
             item.value[0].type?.let {
-
                 Text(
                     text = it.capitalize(Locale.ROOT),
                     style = MaterialTheme.typography.subtitle2,
@@ -40,8 +40,8 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
 
         }
 
-        QuestionsMarksType(item, 30, 10)
-
+        if(item.value.isEmpty() || item.value[0].type == null)
+            QuestionMarks(xParameter = 30, yParameter = 10)
 
         Text(
             text = stringResource(id = R.string.prepaid),
@@ -60,7 +60,9 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionsMarksPrepaid(item, 30, 28)
+
+        if(item.value.isEmpty() || item.value[0].prepaid == null)
+            QuestionMarks(xParameter = 30, yParameter = 28)
 
         Text(
             text = stringResource(id = R.string.country),
@@ -80,8 +82,9 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionsMarksEmoji(item, 30, 50)
 
+        if(item.value.isEmpty() || item.value[0].country?.emoji == null)
+            QuestionMarks(xParameter = 30, yParameter = 50)
 
         if (item.value.isNotEmpty()) {
             item.value[0].country?.latitude?.let {
@@ -95,7 +98,9 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionsMarksLatitude(item, 30, 50)
+
+        if(item.value.isEmpty() || item.value[0].country?.latitude == null)
+            QuestionMarks(xParameter = 30, yParameter = 50)
 
         Text(
             text = stringResource(id = R.string.bank),
@@ -103,7 +108,6 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
             color = Silver,
             modifier = Modifier.offset(x = 30.dp, y = 75.dp)
         )
-
 
         if (item.value.isNotEmpty()) {
             if(item.value[0].bank?.city != null || item.value[0].bank?.name != null) {
@@ -119,8 +123,9 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionsMarksBankName(item, 30, 75)
 
+        if(item.value.isEmpty() || item.value[0].bank?.name == null)
+            QuestionMarks(xParameter = 30, yParameter = 75)
 
         if(item.value.isNotEmpty()){
             if (item.value[0].bank?.url != null) {
@@ -132,7 +137,9 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionsMarksBankUrl(item, 30, 75)
+
+        if(item.value.isEmpty() || item.value[0].bank?.url == null)
+            QuestionMarks(xParameter = 30, yParameter = 75)
 
         if(item.value.isNotEmpty()){
             if (item.value[0].bank?.phone != null) {
@@ -144,6 +151,8 @@ fun CardDataOutputTwoColum(item: MutableState<List<CardModel>>){
                 )
             }
         }
-        QuestionsMarksBankPhone(item, 30, 75)
+
+        if(item.value.isEmpty() || item.value[0].bank?.phone == null)
+            QuestionMarks(xParameter = 30, yParameter = 75)
     }
 }
