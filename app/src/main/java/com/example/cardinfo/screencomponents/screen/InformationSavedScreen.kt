@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.constant.ConstantValue
-import com.example.cardinfo.data.constant.ConstantValue.MAIN_SCREEN
 import com.example.cardinfo.data.constant.ConstantValue.ONE
 import com.example.cardinfo.data.constant.ConstantValue.SAVE_SCREEN
 import com.example.cardinfo.functions.FormatNumberCard
@@ -33,23 +31,12 @@ fun InformationSavedScreen(
     cardDetailsViewModel: CardDetailsViewModel = viewModel(),
     mainViewModel: MainViewModel = viewModel(),
 
-    ) {
+) {
 
     val formatNumberCard = FormatNumberCard()
 
-    // Temporary Solutions
     val id = counter?.toInt()?.minus(ONE)
     val userDao = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
-
-    if(userDao.isNotEmpty()){
-        mainViewModel.infoCardModel.value =
-            listOf(
-                GsonBuilder().create()
-                .fromJson(userDao[id!!]
-                    .numberCard, CardModel::class.java)
-            )
-    }
-    //
 
     Box {
         if (userDao.isNotEmpty()){
@@ -75,13 +62,13 @@ fun InformationSavedScreen(
             Box (modifier = Modifier
                 .offset(x = 30.dp, y = 50.dp))
             {
-                CardDataOutputOneColum(mainViewModel.infoCardModel)
+                CardDataOutputOneColum(mainViewModel.outputAdapter(userDao, id))
             }
 
             Box (modifier = Modifier
                 .offset(x = 100.dp, y = 50.dp))
             {
-                CardDataOutputTwoColum(mainViewModel.infoCardModel)
+                CardDataOutputTwoColum( mainViewModel.outputAdapter(userDao, id))
             }
         }
 
