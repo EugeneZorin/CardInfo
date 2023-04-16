@@ -8,19 +8,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
+import androidx.compose.material.Icon
+import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.Delete
+import androidx.compose.material.rememberDismissState
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -52,38 +59,33 @@ fun SaveScreen(
         modifier = Modifier.fillMaxSize()
     ){
         item { 
-            inputInfoCard.map {
-                Card(
-                    modifier = Modifier
-                        .background(Color.White)
-                        .clickable {
-                            navController.navigate("$INFORMATION_SAVED_SCREEN/${it.id}")
+            inputInfoCard.map { item->
+                val dismissState = rememberDismissState (
+                    confirmStateChange = {
+                        if (it == DismissValue.DismissedToEnd) {
+                            cardDetailsViewModel.deleteDetails(item)
                         }
-                        .swipeable(
-                            state = swipeableState,
-                            anchors = anchors,
-                            thresholds = { _, _ -> FractionalThreshold(0.3f) },
-                            orientation = Orientation.Horizontal
-                        ),
-                    backgroundColor = Color.Red
-                ) {
-                    Card(
-                        Modifier
-                            .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) },
-                        backgroundColor = Color.DarkGray,
-
-                    ) {
-                        Text(
-                            text = it.DetailsCard,
-                            Modifier
-                                .fillMaxWidth()
-                                .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) }
-                                .height(47.dp),
-                            color = Color.White,
-                            style = TextStyle(fontSize = 15.sp)
-                        )
+                        true
                     }
-                }
+                )
+
+                SwipeToDismiss(
+                    state = dismissState,
+                    dismissThresholds = { FractionalThreshold(0.5f) },
+                    directions = setOf(DismissDirection.StartToEnd),
+                    dismissContent = {
+                                     Text(text = item.DetailsCard)
+
+                    },
+                    background = {
+                        Color.DarkGray
+
+                    }
+
+
+                ) 
+
+
             }
         }
     }
