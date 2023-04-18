@@ -17,6 +17,8 @@ class MainViewModel : ViewModel() {
     // Saves the entered json values from the server
     val responseSaveData = mutableStateOf(listOf<Response>())
 
+    val counter = mutableStateOf(0)
+
     fun outputAdapter(userDao: List<CardNumberDetails>, id: Int?): MutableState<List<CardModel>> {
         if(userDao.isNotEmpty()){
             infoCardModel.value =

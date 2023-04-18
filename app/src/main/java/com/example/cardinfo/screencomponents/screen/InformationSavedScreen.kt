@@ -39,6 +39,7 @@ fun InformationSavedScreen(
     val userDao = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
 
     Box {
+
         if (userDao.isNotEmpty()){
             Text(
                 text = formatNumberCard.formatNumberCard(userDao[id!!].DetailsCard),
