@@ -16,7 +16,6 @@ class CardDetailsViewModel(application: Application): AndroidViewModel(applicati
 
     val allDetails: LiveData<List<CardDetails>> = cardDetailsDao.getAllDetails().asLiveData()
 
-
     // Search for card data by saved id
     fun gettingInformationCardById(id: Int): Flow<List<CardDetails>> {
         return cardDetailsDao.getValueById(id)

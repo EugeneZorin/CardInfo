@@ -83,7 +83,7 @@ fun InformationSavedScreen(
         }
 
         Box(modifier = Modifier
-            .offset(x = 125.dp, y = 570.dp)
+            .offset(x = 144.dp, y = 690.dp)
             .fillMaxSize()
         ) {
             Button(
