@@ -4,8 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.cardinfo.data.CardModel
-import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
-import com.example.cardinfo.room.CardNumberDetails
 import com.google.gson.GsonBuilder
 import okhttp3.Response
 
@@ -17,15 +15,13 @@ class MainViewModel : ViewModel() {
     // Saves the entered json values from the server
     val responseSaveData = mutableStateOf(listOf<Response>())
 
-    val counter = mutableStateOf(0)
-
-    fun outputAdapter(userDao: List<CardNumberDetails>, id: Int?): MutableState<List<CardModel>> {
+    // To display saved data on the screen
+    fun outputAdapter(userDao: String): MutableState<List<CardModel>> {
         if(userDao.isNotEmpty()){
             infoCardModel.value =
                 listOf(
                     GsonBuilder().create()
-                        .fromJson(userDao[id!!]
-                            .numberCard, CardModel::class.java)
+                        .fromJson(userDao, CardModel::class.java)
                 )
         }
         return infoCardModel

@@ -2,10 +2,13 @@ package com.example.cardinfo.room
 
 import android.content.Context
 import androidx.room.Database
+import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.cardinfo.data.constant.ConstantValue.CARD_DATABASE
+import kotlinx.coroutines.flow.Flow
 
-@Database(entities = [CardNumberDetails::class], version = 1)
+@Database(entities = [CardDetails::class], version = 1)
 abstract class CardDetailsDatabase: RoomDatabase() {
 
     abstract fun cardDetailsDao(): CardDetailsDao
@@ -20,12 +23,11 @@ abstract class CardDetailsDatabase: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     CardDetailsDatabase::class.java,
-                    "card_database"
+                    CARD_DATABASE
                 ).build()
                 INSTANCE = instance
                 instance
             }
         }
     }
-
 }

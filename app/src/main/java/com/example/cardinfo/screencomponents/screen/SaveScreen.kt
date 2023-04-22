@@ -20,7 +20,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cardinfo.data.constant.ConstantValue
 import com.example.cardinfo.data.constant.ConstantValue.MAIN_SCREEN
-import com.example.cardinfo.viewmodels.MainViewModel
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 
 
@@ -28,18 +27,16 @@ import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 @Composable
 fun SaveScreen(
     cardDetailsViewModel: CardDetailsViewModel = viewModel(),
-    mainViewModel: MainViewModel = viewModel(),
     navController: NavHostController,
 ) {
-
     val inputInfoCard = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
-
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ){
         item { 
             inputInfoCard.map { item->
+
 
                 val dismissState = rememberDismissState (
                     confirmStateChange = {
@@ -50,17 +47,20 @@ fun SaveScreen(
                     }
                 )
 
+
                 SwipeToDismiss(
                     state = dismissState,
                     dismissThresholds = { FractionalThreshold(0.5f) },
                     directions = setOf(DismissDirection.StartToEnd),
                     dismissContent = {
-                        Text(text = item.DetailsCard)
+                        Text(text = item.numberCard)
 
                     },
                     background = { Color.DarkGray },
                     modifier = Modifier.clickable {
-                        navController.navigate("${ConstantValue.INFORMATION_SAVED_SCREEN}/${mainViewModel.counter.value}")
+
+                        // Send ID to screen InformationSavedScreen
+                        navController.navigate("${ConstantValue.INFORMATION_SAVED_SCREEN}/${item.id}")
                     },
 
                 )

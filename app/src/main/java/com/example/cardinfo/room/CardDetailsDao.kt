@@ -10,12 +10,15 @@ import kotlinx.coroutines.flow.Flow
 interface CardDetailsDao {
 
     @Query("SELECT * FROM card_number_details")
-    fun getAllDetails(): Flow<List<CardNumberDetails>>
+    fun getAllDetails(): Flow<List<CardDetails>>
+
+    @Query("SELECT * FROM card_number_details WHERE id = :id")
+    fun getValueById(id: Int): Flow<List<CardDetails>>
 
     @Insert
-    suspend fun insertCard(cardNumberDetails: CardNumberDetails)
+    suspend fun insertCard(cardNumberDetails: CardDetails)
 
     @Delete
-    suspend fun deleteCard(cardNumberDetails: CardNumberDetails)
+    suspend fun deleteCard(cardNumberDetails: CardDetails)
 
 }

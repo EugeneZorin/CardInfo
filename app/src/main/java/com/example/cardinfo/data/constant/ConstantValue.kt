@@ -11,10 +11,8 @@ object ConstantValue {
     // Other Constant
     const val BRACKETS_WITHOUT_SPACES = ""
     const val WHITESPACE = " "
-    const val REGEX = "^\\d+\$"
 
     // Numbers
-    const val ONE = 1
     const val THREE = 3
     const val FOUR = 4
     const val EIGHT = 8
@@ -31,6 +29,9 @@ object ConstantValue {
     const val MAIN_SCREEN = "MainScreen"
     const val SAVE_SCREEN = "SaveScreen"
     const val INFORMATION_SAVED_SCREEN = "InformationSavedScreen"
+
+    // DataBase
+    const val CARD_DATABASE = "card_database"
 
 
 }

@@ -6,20 +6,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cardinfo.room.CardDetailsDatabase
-import com.example.cardinfo.room.CardNumberDetails
+import com.example.cardinfo.room.CardDetails
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class CardDetailsViewModel(application: Application): AndroidViewModel(application) {
 
     private val cardDetailsDao = CardDetailsDatabase.getDatabase(application).cardDetailsDao()
 
-    val allDetails: LiveData<List<CardNumberDetails>> = cardDetailsDao.getAllDetails().asLiveData()
+    val allDetails: LiveData<List<CardDetails>> = cardDetailsDao.getAllDetails().asLiveData()
 
-    fun insertDetails(cardNumberDetails: CardNumberDetails) = viewModelScope.launch {
+
+    // Search for card data by saved id
+    fun gettingInformationCardById(id: Int): Flow<List<CardDetails>> {
+        return cardDetailsDao.getValueById(id)
+    }
+
+    fun insertDetails(cardNumberDetails: CardDetails) = viewModelScope.launch {
         cardDetailsDao.insertCard(cardNumberDetails)
     }
 
-    fun deleteDetails(cardNumberDetails: CardNumberDetails) = viewModelScope.launch {
+    fun deleteDetails(cardNumberDetails: CardDetails) = viewModelScope.launch {
         cardDetailsDao.deleteCard(cardNumberDetails)
     }
 
