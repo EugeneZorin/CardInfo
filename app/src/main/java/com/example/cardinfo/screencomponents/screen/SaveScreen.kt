@@ -14,7 +14,13 @@ import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
 import androidx.compose.material.rememberDismissState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,16 +44,18 @@ fun SaveScreen(
     cardDetailsViewModel: CardDetailsViewModel = viewModel(),
     navController: NavHostController,
 ) {
-    val inputInfoCard = cardDetailsViewModel.allDetails.observeAsState(emptyList()).value
+    val inputInfoCard by cardDetailsViewModel.allDetails.observeAsState(emptyList())
+    val updatedCardDetailsState  = rememberUpdatedState(inputInfoCard)
 
     // Calling a class to give the card number the correct look
     val formatNumberCard = FormatNumberCard()
 
+
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ){
-        item { 
-            inputInfoCard.map { item->
+        item ( updatedCardDetailsState.value) {
+            updatedCardDetailsState.value.map { item->
 
                 val dismissState = rememberDismissState (
                     confirmStateChange = {
@@ -84,17 +92,19 @@ fun SaveScreen(
                     background = { Color.DarkGray },
                     modifier = Modifier
                         .clickable {
-
                             // Send ID to screen InformationSavedScreen
-                            navController.navigate("${ConstantValue.INFORMATION_SAVED_SCREEN}/${item.id}")
-                        },
-                    )
-
-                }
-
-
+                            navController.navigate("${ConstantValue.INFORMATION_SAVED_SCREEN}/${item.id}"
+                        )
+                    },
+                )
             }
         }
+    }
+
+
+    LaunchedEffect(updatedCardDetailsState){
+        cardDetailsViewModel.refreshData()
+    }
 
 
     Box(modifier = Modifier
