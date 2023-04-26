@@ -15,6 +15,9 @@ interface CardDetailsDao {
     @Query("SELECT * FROM card_number_details WHERE id = :id")
     fun getValueById(id: Int): Flow<List<CardDetails>>
 
+    @Query("SELECT numberCard FROM card_number_details WHERE numberCard = :cardNumber")
+    fun getCardNumber(cardNumber: String): Flow<String>
+
     @Insert
     suspend fun insertCard(cardNumberDetails: CardDetails)
 

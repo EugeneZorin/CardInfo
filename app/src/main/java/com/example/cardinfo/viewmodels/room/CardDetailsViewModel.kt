@@ -1,14 +1,13 @@
 package com.example.cardinfo.viewmodels.room
 
 import android.app.Application
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.cardinfo.room.CardDetailsDatabase
 import com.example.cardinfo.room.CardDetails
+import com.example.cardinfo.room.CardDetailsDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -28,6 +27,10 @@ class CardDetailsViewModel(application: Application): AndroidViewModel(applicati
         return cardDetailsDao.getValueById(id)
     }
 
+    fun gettingInformationCardNumber(cardNumber: String): Flow<String> {
+        return cardDetailsDao.getCardNumber(cardNumber)
+    }
+
     fun insertDetails(cardNumberDetails: CardDetails) = viewModelScope.launch {
         cardDetailsDao.insertCard(cardNumberDetails)
     }
@@ -35,5 +38,4 @@ class CardDetailsViewModel(application: Application): AndroidViewModel(applicati
     fun deleteDetails(cardNumberDetails: CardDetails) = viewModelScope.launch {
         cardDetailsDao.deleteCard(cardNumberDetails)
     }
-
 }

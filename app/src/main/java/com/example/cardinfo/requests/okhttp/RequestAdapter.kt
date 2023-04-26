@@ -1,6 +1,5 @@
 package com.example.cardinfo.requests.okhttp
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.data.constant.ConstantValue.ERROR_FOUR_HUNDRED
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
@@ -25,7 +24,6 @@ class RequestAdapter {
         if (responseCode < ERROR_FOUR_HUNDRED){
             preferencesHomeScreenValue.saveData(HOME_SCREEN_VALUES, response)
             preferencesHomeScreenValue.saveData(INPUT_VALUE, cardNumberRemember)
-
         }
 
         return if (responseCode > ERROR_FOUR_HUNDRED) {
