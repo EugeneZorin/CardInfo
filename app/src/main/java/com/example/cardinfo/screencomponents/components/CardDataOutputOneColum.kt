@@ -1,6 +1,7 @@
 package com.example.cardinfo.screencomponents.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text

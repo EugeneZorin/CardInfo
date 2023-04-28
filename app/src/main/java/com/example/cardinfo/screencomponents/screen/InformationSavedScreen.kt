@@ -1,7 +1,11 @@
 package com.example.cardinfo.screencomponents.screen
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,6 +16,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,43 +53,51 @@ fun InformationSavedScreen(
 
     allCardInformation.forEach {
 
-        Box {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+        ) {
 
-            Text(
-                text = formatNumberCard.formatNumberCard(it.numberCard),
-                style = TextStyle(
-                    color = Silver,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(1f)
-                    .offset(y = 40.dp),
-                textAlign = TextAlign.Center,
-            )
+            Box {
+                Text(
+                    text = formatNumberCard.formatNumberCard(it.numberCard),
+                    style = TextStyle(
+                        color = Silver,
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(1f)
+                        .offset(y = 40.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
 
             // Colum with DataCard
-            Row(modifier = Modifier
-                .fillMaxSize()
-                .offset(x = 20.dp, y = 80.dp)) {
+            Row(
 
+            ) {
                 Box (modifier = Modifier
-                    .offset(x = 30.dp, y = 50.dp))
-                {
+                    .padding(vertical = 80.dp, horizontal = 40.dp),
+                    contentAlignment = Alignment.TopStart
+                ) {
                     CardDataOutputOneColum(mainViewModel.outputAdapter(it.allCardDetails))
                 }
 
                 Box (modifier = Modifier
-                    .offset(x = 100.dp, y = 50.dp))
-                {
+                    .padding(vertical = 80.dp, horizontal = 40.dp),
+                    contentAlignment = Alignment.TopEnd
+                ) {
                     CardDataOutputTwoColum( mainViewModel.outputAdapter(it.allCardDetails))
                 }
             }
         }
 
-        Box(modifier = Modifier
-            .offset(x = 144.dp, y = 690.dp)
-            .fillMaxSize()
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 50.dp),
+            contentAlignment = Alignment.BottomCenter,
         ) {
             Button(
                 onClick = { navController.navigate(SAVE_SCREEN) },
