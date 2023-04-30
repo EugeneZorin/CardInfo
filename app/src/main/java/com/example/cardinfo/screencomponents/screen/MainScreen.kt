@@ -4,18 +4,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,6 +30,7 @@ import com.example.cardinfo.screencomponents.components.CardNumberEntry
 import com.example.cardinfo.viewmodels.MainViewModel
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
+import kotlinx.coroutines.delay
 
 @Composable
 fun MainScreen(
@@ -40,20 +43,24 @@ fun MainScreen(
     val checkingMatches = CheckingMatches()
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         horizontalAlignment = CenterHorizontally
     ) {
         Box(
             modifier = Modifier
-                .padding(vertical = 40.dp, horizontal = 60.dp)
-                .fillMaxWidth()
-                .aspectRatio(4.7f)
+                .offset(y = 50.dp),
+            contentAlignment = Alignment.Center
         ) {
             CardNumberEntry()
+            if (mainViewModel.checkingMessageError.value) ErrorMessages()
         }
 
+
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxSize()
+                .offset(y = 50.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -100,9 +107,11 @@ fun MainScreen(
         }
 
         Button(
-            onClick = {checkingMatches.checkingMatches(
-                preferencesHomeScreenData,
-                cardDetailsViewModel
+            onClick = {
+                checkingMatches.checkingMatches(
+                    preferencesHomeScreenData,
+                    cardDetailsViewModel,
+                    mainViewModel
             )},
             modifier = Modifier
                 .padding(2.dp)
@@ -116,4 +125,40 @@ fun MainScreen(
     }
 }
 
+@Composable
+fun ErrorMessages(
+    mainViewModel: MainViewModel = viewModel()
+) {
+
+    Text(
+        text = "этот номер уже сохранен",
+        color = Color.Red,
+        modifier = Modifier
+            .offset(y = 37.dp),
+        textAlign = TextAlign.Center
+    )
+
+    LaunchedEffect(Unit){
+        delay(2500)
+        mainViewModel.checkingMessageError.value = false
+    }
+}
+
+
+@Composable
+fun NoInternetMessages(
+    mainViewModel: MainViewModel = viewModel()
+){
+    Text(
+        text = "отсутствует подключения к интернету",
+        color = Color.Red,
+        modifier = Modifier
+            .offset(y = 37.dp),
+        textAlign = TextAlign.Center
+    )
+
+    LaunchedEffect(Unit){
+        delay(5000)
+    }
+}
 

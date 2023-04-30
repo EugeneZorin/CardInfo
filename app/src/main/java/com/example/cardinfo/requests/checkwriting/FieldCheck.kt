@@ -1,5 +1,6 @@
 package com.example.cardinfo.requests.checkwriting
 
+import android.content.Context
 import com.example.cardinfo.data.CardModel
 import com.example.cardinfo.data.constant.ConstantValue
 import com.example.cardinfo.data.constant.ConstantValue.HOME_SCREEN_VALUES
@@ -7,9 +8,9 @@ import com.example.cardinfo.data.constant.ConstantValue.INPUT_VALUE
 import com.example.cardinfo.viewmodels.MainViewModel
 import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
 
-class FieldCheck {
+class FieldCheck(context: Context) {
 
-    private val requestWriting = RequestWriting()
+    private val requestWriting = RequestWriting(context)
     fun fieldCheck(
         cardNumberRemember: String,
         mainViewModel: MainViewModel,

@@ -1,5 +1,6 @@
 package com.example.cardinfo.requests.checkwriting
 
+import android.content.Context
 import com.example.cardinfo.requests.okhttp.RequestAdapter
 import com.example.cardinfo.requests.okhttp.RequestProcessing
 import com.example.cardinfo.viewmodels.MainViewModel
@@ -9,9 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class RequestWriting(){
+class RequestWriting(context: Context) {
+    private val requestProcessing = RequestProcessing(context)
 
-    private val requestProcessing = RequestProcessing()
     private val requestAdapter = RequestAdapter()
     private val requestScope = CoroutineScope(Dispatchers.Default)
 
@@ -22,13 +23,19 @@ class RequestWriting(){
     ) {
         // A request is sent to the server to receive information about the card
         requestScope.launch {
-            mainViewModel.responseSaveData.value = listOf(requestProcessing.getData(cardNumberRemember))
 
-            mainViewModel.infoCardModel.value = requestAdapter.requestAdapter(
-                mainViewModel,
-                cardNumberRemember,
-                preferencesHomeScreenValue
-            )
+            val okHttpData = requestProcessing.getData(cardNumberRemember)
+
+            if (okHttpData != null){
+
+                mainViewModel.responseSaveData.value = listOf(okHttpData)
+
+                mainViewModel.infoCardModel.value = requestAdapter.requestAdapter(
+                    mainViewModel,
+                    cardNumberRemember,
+                    preferencesHomeScreenValue
+                )
+            }
         }
     }
     fun canselRequest(){

@@ -2,6 +2,7 @@ package com.example.cardinfo.functions
 
 import com.example.cardinfo.data.constant.ConstantValue
 import com.example.cardinfo.room.CardDetails
+import com.example.cardinfo.viewmodels.MainViewModel
 import com.example.cardinfo.viewmodels.room.CardDetailsViewModel
 import com.example.cardinfo.viewmodels.viewmodelshared.ViewModelSharedPreferences
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +14,8 @@ class CheckingMatches {
 
     fun checkingMatches(
         preferencesHomeScreenValue: ViewModelSharedPreferences,
-        cardDetailsViewModel: CardDetailsViewModel
+        cardDetailsViewModel: CardDetailsViewModel,
+        mainViewModel: MainViewModel
     ){
 
         val saveScope = CoroutineScope(Dispatchers.Default)
@@ -37,6 +39,8 @@ class CheckingMatches {
                         preferencesHomeScreenValue.getData(ConstantValue.INPUT_VALUE).toString(),
                     )
                 )
+            } else {
+                mainViewModel.checkingMessageError.value = true
             }
         }
     }

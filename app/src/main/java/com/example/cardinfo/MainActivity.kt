@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val requestWriting = RequestWriting()
+        val requestWriting = RequestWriting(context = this)
         requestWriting.canselRequest()
     }
 }

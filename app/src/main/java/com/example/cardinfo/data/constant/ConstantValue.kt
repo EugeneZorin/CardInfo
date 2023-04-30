@@ -24,6 +24,7 @@ object ConstantValue {
 
     // Error
     const val ERROR_FOUR_HUNDRED = 400
+    const val NULL = "null"
 
     // Screen
     const val MAIN_SCREEN = "MainScreen"

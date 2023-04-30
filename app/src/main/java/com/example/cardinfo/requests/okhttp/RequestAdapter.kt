@@ -26,6 +26,7 @@ class RequestAdapter {
             preferencesHomeScreenValue.saveData(INPUT_VALUE, cardNumberRemember)
         }
 
+
         return if (responseCode > ERROR_FOUR_HUNDRED) {
             listOf(CardModel(errorHandler = true))
 
