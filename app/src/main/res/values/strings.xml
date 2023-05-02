@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CardInfo</string>
+    <string name="app_name">Информация о карте</string>
     <string name="scheme_network">Schema / Network</string>
     <string name="brand">Brand</string>
     <string name="card_number">Card number</string>

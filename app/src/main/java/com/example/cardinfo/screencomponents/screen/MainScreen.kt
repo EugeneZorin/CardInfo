@@ -52,8 +52,11 @@ fun MainScreen(
                 .offset(y = 50.dp),
             contentAlignment = Alignment.Center
         ) {
+
             CardNumberEntry()
+
             if (mainViewModel.checkingMessageError.value) ErrorMessages()
+            if (mainViewModel.noInternetMessage.value) NoInternetMessages()
         }
 
 
@@ -159,6 +162,7 @@ fun NoInternetMessages(
 
     LaunchedEffect(Unit){
         delay(5000)
+        mainViewModel.noInternetMessage.value = false
     }
 }
 

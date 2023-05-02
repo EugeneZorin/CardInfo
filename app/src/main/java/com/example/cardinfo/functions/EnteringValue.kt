@@ -6,12 +6,10 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import com.example.cardinfo.data.constant.ConstantValue.BRACKETS_WITHOUT_SPACES
+import com.example.cardinfo.data.constant.ConstantValue.DEFAULT_CARD_NUMBER
 
 
 class EnteringValue {
-
-    // Default card number
-    private val defaultCardNumber = "0000 0000 0000 0000"
 
     // Filter for entering the card number with a space every 4 digits
     fun filter(cardNumber: AnnotatedString): TransformedText {
@@ -28,7 +26,7 @@ class EnteringValue {
                 }
             }
             pushStyle(SpanStyle(color = Color.LightGray))
-            append(defaultCardNumber.takeLast(defaultCardNumber.length - length))
+            append(DEFAULT_CARD_NUMBER.takeLast(DEFAULT_CARD_NUMBER.length - length))
             toAnnotatedString()
         }
 

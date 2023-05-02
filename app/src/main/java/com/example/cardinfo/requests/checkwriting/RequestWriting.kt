@@ -10,9 +10,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class RequestWriting(context: Context) {
-    private val requestProcessing = RequestProcessing(context)
+class RequestWriting(
+    context: Context
 
+) {
+
+    private val requestProcessing = RequestProcessing(context)
     private val requestAdapter = RequestAdapter()
     private val requestScope = CoroutineScope(Dispatchers.Default)
 
@@ -35,6 +38,8 @@ class RequestWriting(context: Context) {
                     cardNumberRemember,
                     preferencesHomeScreenValue
                 )
+            } else {
+                mainViewModel.noInternetMessage.value = true
             }
         }
     }

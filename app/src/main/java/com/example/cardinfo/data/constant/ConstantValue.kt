@@ -21,6 +21,8 @@ object ConstantValue {
     const val FOURTEEN = 14
     const val SIXTEEN = 16
 
+    const val DEFAULT_CARD_NUMBER = "0000 0000 0000 0000"
+
 
     // Error
     const val ERROR_FOUR_HUNDRED = 400
